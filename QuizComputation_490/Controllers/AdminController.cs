@@ -27,7 +27,7 @@ namespace QuizComputation_490.Controllers
 
         public ActionResult CreateQuiz()
         {
-            return View() ;
+            return View();
         }
 
         [HttpPost]
@@ -49,6 +49,19 @@ namespace QuizComputation_490.Controllers
             Quizzes quiz = _admin.GetQuiz(quizID);
             QuizModel quizModel = ModelConverter.ConvertQuizToQuizModel(quiz);
             return View("CreateQuiz", quizModel);
+        }
+
+        [HttpPost]
+        public ActionResult EditQuiz(QuizModel updatedQuiz)
+        {
+            bool status = _admin.UpdateQuiz(updatedQuiz, UserSession.UserID);
+            return RedirectToAction("GetAllQuiz");
+        }
+
+        public ActionResult DeleteQuiz(int quizID)
+        {
+            bool status = _admin.DeleteQuiz(quizID);
+            return RedirectToAction("GetAllQuiz");
         }
     }
 }

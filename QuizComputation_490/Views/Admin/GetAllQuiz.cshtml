@@ -4,34 +4,26 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+<p class="d-flex justify-content-end">
+    @Html.ActionLink("Create Quiz", "CreateQuiz", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table table-bordered">
+    <tr>
+        <th class="text-nowrap">
+            Sr No.
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Action
+        </th>
+    </tr>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>GetAllQuiz</title>
-</head>
-<body>
-    <p class="d-flex justify-content-end">
-        @Html.ActionLink("Create Quiz", "Create", null, new { @class="btn btn-primary" })
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                Sr No.
-            </th>
-            <th>
-                Title
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Action
-            </th>
-        </tr>
-    
-     @{ int counter = 1;}
+    @{ int counter = 1;}
     @foreach (var item in Model)
     {
         <tr>
@@ -45,14 +37,12 @@
                 @item.QuizDescription
             </td>
             <td>
-                <div>
-                    @Html.ActionLink("Edit", "EditQuiz", "Admin", new { @quizID = item.QuizID } ,new { @class="btn btn-primary btn-sm" })
-                    @Html.ActionLink("Delete", "DeleteQuiz", "Admin", new { @quizID = item.QuizID } ,new { @class="btn btn-danger btn-sm" })
+                <div class="d-flex flex-nowrap gap-2">
+                    @Html.ActionLink("Edit", "EditQuiz", "Admin", new { @quizID = item.QuizID }, new { @class = "btn btn-primary btn-sm" })
+                    @Html.ActionLink("Delete", "DeleteQuiz", "Admin", new { @quizID = item.QuizID }, new { @class = "btn btn-danger btn-sm" })
                 </div>
             </td>
         </tr>
     }
-    
-    </table>
-</body>
-</html>
+
+</table>

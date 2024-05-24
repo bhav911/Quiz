@@ -14,5 +14,7 @@ namespace QuizComputation_490_Repository.Interface
         bool CreateQuiz(QuizModel newQuiz, int adminID);
         List<Quizzes> GetAllQuiz(int adminID);
         Quizzes GetQuiz(int adminID);
+        bool UpdateQuiz(QuizModel updatedQuiz, int adminID);
+        bool DeleteQuiz(int adminID);
     }
 }
