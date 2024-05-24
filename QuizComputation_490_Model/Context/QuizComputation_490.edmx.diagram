@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6b06eb915d304285a448c06e932db3a4" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="QuizComputation_490Model.Admins" Width="1.5" PointX="13.625" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuizComputation_490Model.Options" Width="1.5" PointX="2.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuizComputation_490Model.Questions" Width="1.5" PointX="5.375" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuizComputation_490Model.Quizzes" Width="1.5" PointX="10.125" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuizComputation_490Model.Results" Width="1.5" PointX="7.125" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuizComputation_490Model.UserAnswers" Width="1.5" PointX="6.375" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuizComputation_490Model.Users" Width="1.5" PointX="2" PointY="4.625" IsExpanded="true" />
+        <AssociationConnector Association="QuizComputation_490Model.fk_createdBy_quiz" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizComputation_490Model.fk_questionID_options" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizComputation_490Model.fk_selectedOptionID_UserAnswers" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizComputation_490Model.fk_questionID_UserAnswers" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizComputation_490Model.fk_quizID_questions" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizComputation_490Model.fk_quizID_Results" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizComputation_490Model.fk_quizID_UserAnswers" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizComputation_490Model.fk_userID_Results" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="QuizComputation_490Model.fk_userID_UserAnswers" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

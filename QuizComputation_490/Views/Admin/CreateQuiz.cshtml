@@ -1,0 +1,162 @@
+﻿@model QuizComputation_490_Model.CustomModels.QuizModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    function addQuestion() {
+        let NumOfQuestions = $('.question').length;
+        if (NumOfQuestions == 5) {
+            return;
+        }
+        if (NumOfQuestions == 4) {
+            $('#createQuizBtn').prop('disabled', false)
+        }
+        else {
+            $('#createQuizBtn').prop('disabled', true)
+        }
+
+            let holder = $('#QuestionHolder');
+            holder.append(`
+                <div class="question  mb-5">
+                    <div class="d-flex gap-4">
+                        <input type="text" name="QuizQuestionList.Index" value="${NumOfQuestions + 1}" hidden/>
+                        <p class=" fs-4"> ${NumOfQuestions + 1}.</p>
+                        <input class = "form-control mb-3" name="QuizQuestionList[${NumOfQuestions + 1}].QuestionText" />
+                    </div>
+                    <div>
+                        <div class="row">
+                            @{
+                                for (int option = 0; option < 4; option++)
+                                {
+                                    <div class="col-6 d-flex align-items-center gap-4 mb-4">
+                                        <input hidden class = "form-control" name="QuizQuestionList[${NumOfQuestions + 1}].OptionList[@option].IsCorrect" value=false />
+                                        <span class=" fs-4">(@((char)('A' + option)))</span>
+                                        <input class = "form-control" name="QuizQuestionList[${NumOfQuestions + 1}].OptionList[@option].OptionText" />
+                                    </div>
+                                }
+                            }
+                            <div class="d-flex justify-content-end">
+                                <select onchange="bindCorrectAnswer(${NumOfQuestions + 1}, this)">
+                                    <option>Select Correct option</option>
+                                    <option value=0>A</option>
+                                    <option value=1>B</option>
+                                    <option value=2>C</option>
+                                    <option value=3>D</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-5"/>
+            `)
+        }
+
+    function bindCorrectAnswer(QuesID, ele) {
+        debugger
+        let correctAns = $(ele).val();        
+        let element = $(`[name = "QuizQuestionList[${QuesID}].OptionList[${correctAns}].IsCorrect"]`);
+        $(element).attr('value',true);
+    }
+</script>
+
+<div class="p-5 border">
+    @using (Html.BeginForm())
+    {
+        <h3 class="mb-4">Quiz Details</h3>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-floating">
+                    @Html.TextBoxFor(m => m.QuizTitle, new { @class = "form-control", @placeholder = "" })
+                    @Html.LabelFor(m => m.QuizTitle, "Quiz Title")
+                    @Html.ValidationMessageFor(m => m.QuizTitle, null, new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-floating">
+                    @Html.TextAreaFor(m => m.QuizDescription, new { @class = "form-control", @placeholder = "" })
+                    @Html.LabelFor(m => m.QuizDescription, "Quiz Description")
+                    @Html.ValidationMessageFor(m => m.QuizQuestionList, null, new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <hr class="my-5" />
+        <div class="d-flex justify-content-between">
+            <h3>Question Details</h3>
+            <button type="button" class="btn btn-primary mb-5" onclick="addQuestion()">Add Question</button>
+        </div>
+        <div id="QuestionHolder">
+            @{
+                if (Model != null && Model.QuizQuestionList != null)
+                {
+                    for (int item = 0; item < Model.QuizQuestionList.Count(); item++)
+                    {
+                        <div class="question">
+                            <div class="d-flex gap-4">
+                                <p class=" fs-4"> @(item + 1).</p>
+                                <input type="text" name="QuizQuestionList.Index" value="@item" hidden />
+                                @Html.TextBoxFor(m => m.QuizQuestionList[item].QuestionText, new { @class = "form-control mb-3" })
+                            </div>
+                            <div>
+                                <div class="row mb-5">
+                                    @{
+                                        for (int option = 0; option < 4; option++)
+                                        {
+                                            <div class="col-6 d-flex align-items-center gap-4 mb-4">
+                                                <span class=" fs-4">(@((char)('A' + option)))</span>
+                                                @Html.TextBoxFor(m => m.QuizQuestionList[item].OptionList[option].OptionText, new { @class = "form-control" })
+                                            </div>
+                                        }
+                                    }
+                                <div class="d-flex justify-content-end">
+                                    <select onchange="bindCorrectAnswer(@item, this)">
+                                        <option>Select Correct option</option>
+                                        @{
+                                            if (Model.QuizQuestionList[item].OptionList[0].IsCorrect == true)
+                                            {
+                                                <option value=0 selected>A</option>
+                                            }
+                                            else
+                                            {
+                                                <option value=0>A</option>
+                                            }
+                                            if (Model.QuizQuestionList[item].OptionList[1].IsCorrect == true)
+                                            {
+                                                <option value=1 selected>B</option>
+                                            }
+                                            else
+                                            {
+                                                <option value=1>B</option>
+                                            }
+                                            if (Model.QuizQuestionList[item].OptionList[2].IsCorrect == true)
+                                            {
+                                                <option value=2 selected>C</option>
+                                            }
+                                            else
+                                            {
+                                                <option value=2>C</option>
+                                            }
+                                            if (Model.QuizQuestionList[item].OptionList[3].IsCorrect == true)
+                                            {
+                                                <option value=3 selected>D</option>
+                                            }
+                                            else
+                                            {
+                                                <option value=3>D</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>  
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-success" id="createQuizBtn" disabled>Create</button>
+        </div>
+    }
+</div>

@@ -1,0 +1,58 @@
+﻿@model List<QuizComputation_490_Model.CustomModels.QuizModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetAllQuiz</title>
+</head>
+<body>
+    <p class="d-flex justify-content-end">
+        @Html.ActionLink("Create Quiz", "Create", null, new { @class="btn btn-primary" })
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                Sr No.
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    
+     @{ int counter = 1;}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @(counter++)
+            </td>
+            <td>
+                @item.QuizTitle
+            </td>
+            <td>
+                @item.QuizDescription
+            </td>
+            <td>
+                <div>
+                    @Html.ActionLink("Edit", "EditQuiz", "Admin", new { @quizID = item.QuizID } ,new { @class="btn btn-primary btn-sm" })
+                    @Html.ActionLink("Delete", "DeleteQuiz", "Admin", new { @quizID = item.QuizID } ,new { @class="btn btn-danger btn-sm" })
+                </div>
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

@@ -1,0 +1,42 @@
+﻿@model QuizComputation_490_Model.CustomModels.LoginModel
+
+@{ Layout = "~/Views/Shared/_LoginLayout.cshtml"; }
+
+<script>
+    function resetForm() {
+        let role = $('#role').val();
+        document.getElementById('signin').reset();
+        $('#role').val(role);
+    }
+</script>
+
+<div>
+    <form method="post" id="signin">
+        <div class="mb-3">
+            <select class="form-select p-3 text-decoration-none text-success fw-bold  border border-success" name="role" onchange="resetForm()" id="role">
+                <option>Select Role</option>
+                <option>Admin</option>
+                <option>User</option>
+            </select>
+            @Html.ValidationMessageFor(m => m.Role, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-floating mb-3">
+            @Html.TextBoxFor(m => m.Login_email, new { @class = "form-control", @placeholder = "" })
+            @Html.LabelFor(m => m.Login_email, "Email Address")
+            @Html.ValidationMessageFor(m => m.Login_email, null, new { @class="text-danger" })
+        </div>
+        <div class="form-floating mb-3">
+            @Html.TextBoxFor(m => m.Login_password, new { @class = "form-control", @placeholder = "" })
+            @Html.LabelFor(m => m.Login_password, "Password")
+            @Html.ValidationMessageFor(m => m.Login_password, null, new { @class = "text-danger" })
+        </div>
+        <div class="d-flex justify-content-center mb-3 ">
+            <button type="submit" class="btn btn-success">SignIn</button>
+        </div>
+    </form>
+
+    <div class="d-flex justify-content-center">
+        <span>Don't have an account ? &nbsp;</span>
+        @Html.ActionLink("Sign Up", "SignUp", "Login", null, new { @class = "text-success text-decoration-none" })
+    </div>
+</div>

@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuizComputation_490Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admins">
+    <Key>
+      <PropertyRef Name="adminID" />
+    </Key>
+    <Property Name="adminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="updatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Quizzes" Relationship="Self.fk_createdBy_quiz" FromRole="Admins" ToRole="Quizzes" />
+  </EntityType>
+  <EntityType Name="Options">
+    <Key>
+      <PropertyRef Name="optionID" />
+    </Key>
+    <Property Name="optionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="questionID" Type="Int32" />
+    <Property Name="optionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="isCorrect" Type="Boolean" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="updatedAT" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Questions" Relationship="Self.fk_questionID_options" FromRole="Options" ToRole="Questions" />
+    <NavigationProperty Name="UserAnswers" Relationship="Self.fk_selectedOptionID_UserAnswers" FromRole="Options" ToRole="UserAnswers" />
+  </EntityType>
+  <EntityType Name="Questions">
+    <Key>
+      <PropertyRef Name="questionID" />
+    </Key>
+    <Property Name="questionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="quizID" Type="Int32" />
+    <Property Name="questionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="updatedAT" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Options" Relationship="Self.fk_questionID_options" FromRole="Questions" ToRole="Options" />
+    <NavigationProperty Name="UserAnswers" Relationship="Self.fk_questionID_UserAnswers" FromRole="Questions" ToRole="UserAnswers" />
+    <NavigationProperty Name="Quizzes" Relationship="Self.fk_quizID_questions" FromRole="Questions" ToRole="Quizzes" />
+  </EntityType>
+  <EntityType Name="Quizzes">
+    <Key>
+      <PropertyRef Name="quizID" />
+    </Key>
+    <Property Name="quizID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="createdBy" Type="Int32" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="updatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Admins" Relationship="Self.fk_createdBy_quiz" FromRole="Quizzes" ToRole="Admins" />
+    <NavigationProperty Name="Questions" Relationship="Self.fk_quizID_questions" FromRole="Quizzes" ToRole="Questions" />
+    <NavigationProperty Name="Results" Relationship="Self.fk_quizID_Results" FromRole="Quizzes" ToRole="Results" />
+    <NavigationProperty Name="UserAnswers" Relationship="Self.fk_quizID_UserAnswers" FromRole="Quizzes" ToRole="UserAnswers" />
+  </EntityType>
+  <EntityType Name="Results">
+    <Key>
+      <PropertyRef Name="resultID" />
+    </Key>
+    <Property Name="resultID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="Int32" />
+    <Property Name="quizID" Type="Int32" />
+    <Property Name="score" Type="Int32" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Quizzes" Relationship="Self.fk_quizID_Results" FromRole="Results" ToRole="Quizzes" />
+    <NavigationProperty Name="Users" Relationship="Self.fk_userID_Results" FromRole="Results" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="UserAnswers">
+    <Key>
+      <PropertyRef Name="answerID" />
+    </Key>
+    <Property Name="answerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="Int32" />
+    <Property Name="quizID" Type="Int32" />
+    <Property Name="questionID" Type="Int32" />
+    <Property Name="selectedOptionID" Type="Int32" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Options" Relationship="Self.fk_selectedOptionID_UserAnswers" FromRole="UserAnswers" ToRole="Options" />
+    <NavigationProperty Name="Questions" Relationship="Self.fk_questionID_UserAnswers" FromRole="UserAnswers" ToRole="Questions" />
+    <NavigationProperty Name="Quizzes" Relationship="Self.fk_quizID_UserAnswers" FromRole="UserAnswers" ToRole="Quizzes" />
+    <NavigationProperty Name="Users" Relationship="Self.fk_userID_UserAnswers" FromRole="UserAnswers" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="updatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Results" Relationship="Self.fk_userID_Results" FromRole="Users" ToRole="Results" />
+    <NavigationProperty Name="UserAnswers" Relationship="Self.fk_userID_UserAnswers" FromRole="Users" ToRole="UserAnswers" />
+  </EntityType>
+  <Association Name="fk_createdBy_quiz">
+    <End Role="Admins" Type="Self.Admins" Multiplicity="0..1" />
+    <End Role="Quizzes" Type="Self.Quizzes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admins">
+        <PropertyRef Name="adminID" />
+      </Principal>
+      <Dependent Role="Quizzes">
+        <PropertyRef Name="createdBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_questionID_options">
+    <End Role="Questions" Type="Self.Questions" Multiplicity="0..1" />
+    <End Role="Options" Type="Self.Options" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questions">
+        <PropertyRef Name="questionID" />
+      </Principal>
+      <Dependent Role="Options">
+        <PropertyRef Name="questionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_selectedOptionID_UserAnswers">
+    <End Role="Options" Type="Self.Options" Multiplicity="0..1" />
+    <End Role="UserAnswers" Type="Self.UserAnswers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Options">
+        <PropertyRef Name="optionID" />
+      </Principal>
+      <Dependent Role="UserAnswers">
+        <PropertyRef Name="selectedOptionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_questionID_UserAnswers">
+    <End Role="Questions" Type="Self.Questions" Multiplicity="0..1" />
+    <End Role="UserAnswers" Type="Self.UserAnswers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questions">
+        <PropertyRef Name="questionID" />
+      </Principal>
+      <Dependent Role="UserAnswers">
+        <PropertyRef Name="questionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_quizID_questions">
+    <End Role="Quizzes" Type="Self.Quizzes" Multiplicity="0..1" />
+    <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quizzes">
+        <PropertyRef Name="quizID" />
+      </Principal>
+      <Dependent Role="Questions">
+        <PropertyRef Name="quizID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_quizID_Results">
+    <End Role="Quizzes" Type="Self.Quizzes" Multiplicity="0..1" />
+    <End Role="Results" Type="Self.Results" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quizzes">
+        <PropertyRef Name="quizID" />
+      </Principal>
+      <Dependent Role="Results">
+        <PropertyRef Name="quizID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_quizID_UserAnswers">
+    <End Role="Quizzes" Type="Self.Quizzes" Multiplicity="0..1" />
+    <End Role="UserAnswers" Type="Self.UserAnswers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quizzes">
+        <PropertyRef Name="quizID" />
+      </Principal>
+      <Dependent Role="UserAnswers">
+        <PropertyRef Name="quizID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_userID_Results">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Results" Type="Self.Results" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Results">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_userID_UserAnswers">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="UserAnswers" Type="Self.UserAnswers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="UserAnswers">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuizComputation_490Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admins" />
+    <EntitySet Name="Options" EntityType="Self.Options" />
+    <EntitySet Name="Questions" EntityType="Self.Questions" />
+    <EntitySet Name="Quizzes" EntityType="Self.Quizzes" />
+    <EntitySet Name="Results" EntityType="Self.Results" />
+    <EntitySet Name="UserAnswers" EntityType="Self.UserAnswers" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="fk_createdBy_quiz" Association="Self.fk_createdBy_quiz">
+      <End Role="Admins" EntitySet="Admins" />
+      <End Role="Quizzes" EntitySet="Quizzes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_questionID_options" Association="Self.fk_questionID_options">
+      <End Role="Questions" EntitySet="Questions" />
+      <End Role="Options" EntitySet="Options" />
+    </AssociationSet>
+    <AssociationSet Name="fk_selectedOptionID_UserAnswers" Association="Self.fk_selectedOptionID_UserAnswers">
+      <End Role="Options" EntitySet="Options" />
+      <End Role="UserAnswers" EntitySet="UserAnswers" />
+    </AssociationSet>
+    <AssociationSet Name="fk_questionID_UserAnswers" Association="Self.fk_questionID_UserAnswers">
+      <End Role="Questions" EntitySet="Questions" />
+      <End Role="UserAnswers" EntitySet="UserAnswers" />
+    </AssociationSet>
+    <AssociationSet Name="fk_quizID_questions" Association="Self.fk_quizID_questions">
+      <End Role="Quizzes" EntitySet="Quizzes" />
+      <End Role="Questions" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="fk_quizID_Results" Association="Self.fk_quizID_Results">
+      <End Role="Quizzes" EntitySet="Quizzes" />
+      <End Role="Results" EntitySet="Results" />
+    </AssociationSet>
+    <AssociationSet Name="fk_quizID_UserAnswers" Association="Self.fk_quizID_UserAnswers">
+      <End Role="Quizzes" EntitySet="Quizzes" />
+      <End Role="UserAnswers" EntitySet="UserAnswers" />
+    </AssociationSet>
+    <AssociationSet Name="fk_userID_Results" Association="Self.fk_userID_Results">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Results" EntitySet="Results" />
+    </AssociationSet>
+    <AssociationSet Name="fk_userID_UserAnswers" Association="Self.fk_userID_UserAnswers">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserAnswers" EntitySet="UserAnswers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

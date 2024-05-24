@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.34729.46
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizComputation_490", "QuizComputation_490\QuizComputation_490.csproj", "{47488EF6-4298-4F8C-9111-AC6FF5BC05C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizComputation_490_Helper", "QuizComputation_490_Helper\QuizComputation_490_Helper.csproj", "{AD8CB034-75DC-4E03-93B1-E40D11C5C45D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizComputation_490_Model", "QuizComputation_490_Model\QuizComputation_490_Model.csproj", "{B09D3E31-58BB-4403-B138-46196CCFE346}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizComputation_490_Repository", "QuizComputation_490_Repository\QuizComputation_490_Repository.csproj", "{6BE30513-6A18-436E-A335-9B29049FC812}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizComputation_490_WebAPI", "QuizComputation_490_WebAPI\QuizComputation_490_WebAPI.csproj", "{CCF3AC3B-AC2F-4CD6-8218-EB7552427F64}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{47488EF6-4298-4F8C-9111-AC6FF5BC05C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47488EF6-4298-4F8C-9111-AC6FF5BC05C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47488EF6-4298-4F8C-9111-AC6FF5BC05C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47488EF6-4298-4F8C-9111-AC6FF5BC05C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD8CB034-75DC-4E03-93B1-E40D11C5C45D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD8CB034-75DC-4E03-93B1-E40D11C5C45D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD8CB034-75DC-4E03-93B1-E40D11C5C45D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD8CB034-75DC-4E03-93B1-E40D11C5C45D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B09D3E31-58BB-4403-B138-46196CCFE346}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B09D3E31-58BB-4403-B138-46196CCFE346}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B09D3E31-58BB-4403-B138-46196CCFE346}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B09D3E31-58BB-4403-B138-46196CCFE346}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BE30513-6A18-436E-A335-9B29049FC812}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BE30513-6A18-436E-A335-9B29049FC812}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BE30513-6A18-436E-A335-9B29049FC812}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BE30513-6A18-436E-A335-9B29049FC812}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCF3AC3B-AC2F-4CD6-8218-EB7552427F64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCF3AC3B-AC2F-4CD6-8218-EB7552427F64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCF3AC3B-AC2F-4CD6-8218-EB7552427F64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCF3AC3B-AC2F-4CD6-8218-EB7552427F64}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AADE59F6-D846-43EE-837D-CB7A6866A578}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QuizComputation_490ModelStoreContainer" CdmEntityContainer="QuizComputation_490Entities">
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="QuizComputation_490Model.Admins">
+        <MappingFragment StoreEntitySet="Admins">
+          <ScalarProperty Name="adminID" ColumnName="adminID" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Options">
+      <EntityTypeMapping TypeName="QuizComputation_490Model.Options">
+        <MappingFragment StoreEntitySet="Options">
+          <ScalarProperty Name="optionID" ColumnName="optionID" />
+          <ScalarProperty Name="questionID" ColumnName="questionID" />
+          <ScalarProperty Name="optionText" ColumnName="optionText" />
+          <ScalarProperty Name="isCorrect" ColumnName="isCorrect" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="updatedAT" ColumnName="updatedAT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions">
+      <EntityTypeMapping TypeName="QuizComputation_490Model.Questions">
+        <MappingFragment StoreEntitySet="Questions">
+          <ScalarProperty Name="questionID" ColumnName="questionID" />
+          <ScalarProperty Name="quizID" ColumnName="quizID" />
+          <ScalarProperty Name="questionText" ColumnName="questionText" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="updatedAT" ColumnName="updatedAT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Quizzes">
+      <EntityTypeMapping TypeName="QuizComputation_490Model.Quizzes">
+        <MappingFragment StoreEntitySet="Quizzes">
+          <ScalarProperty Name="quizID" ColumnName="quizID" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Results">
+      <EntityTypeMapping TypeName="QuizComputation_490Model.Results">
+        <MappingFragment StoreEntitySet="Results">
+          <ScalarProperty Name="resultID" ColumnName="resultID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="quizID" ColumnName="quizID" />
+          <ScalarProperty Name="score" ColumnName="score" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserAnswers">
+      <EntityTypeMapping TypeName="QuizComputation_490Model.UserAnswers">
+        <MappingFragment StoreEntitySet="UserAnswers">
+          <ScalarProperty Name="answerID" ColumnName="answerID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="quizID" ColumnName="quizID" />
+          <ScalarProperty Name="questionID" ColumnName="questionID" />
+          <ScalarProperty Name="selectedOptionID" ColumnName="selectedOptionID" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="QuizComputation_490Model.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
