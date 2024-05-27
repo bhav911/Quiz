@@ -95,21 +95,6 @@ namespace QuizComputation_490_Repository.Services
             return score;
         }
 
-        //public ResultModel GetResult(int userID, int quizID)
-        //{
-        //    int totalQuestion = db.Questions.Where(q => q.quizID == quizID).Count();
-        //    int count = db.Results.Where(q => q.quizID = quizID && (int)q.userID = userID);
-
-        //    ResultModel resultModel = new ResultModel
-        //    {
-        //        quizID = quizID,
-        //        CorrectAnswers = count,
-        //        TotalQuestions = totalQuestion
-        //    };
-
-        //    return resultModel;
-        //}
-
         public int GetTotalQuestions(int quizID)
         {
             int totalQuestions = db.Questions.Where(q => q.quizID == quizID).Count();

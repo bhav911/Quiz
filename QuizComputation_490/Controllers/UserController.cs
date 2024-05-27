@@ -51,8 +51,8 @@ namespace QuizComputation_490.Controllers
         {
             Questions quiz = _quiz.GetQuestion(questionID);
             CompactQuestionModel quizModel = ModelConverter.ConvertQuestionToCompactQuestionModel(quiz);
-            quizModel.FirstQuestionID = _quiz.GetFirstQuestionID((int)quiz.quizID);
-            quizModel.LastQuestionID = _quiz.GetLastQuestionID((int)quiz.quizID);
+            //quizModel.FirstQuestionID = _quiz.GetFirstQuestionID((int)quiz.quizID);
+            //quizModel.LastQuestionID = _quiz.GetLastQuestionID((int)quiz.quizID);
             return PartialView("QuestionBox", quizModel);
         }
         public ActionResult StartQuiz(int quizID)

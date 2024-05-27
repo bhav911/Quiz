@@ -24,11 +24,6 @@ namespace QuizComputation_490.Controllers
             _admin = admin;
         }
 
-        public ActionResult GetAllQuizes()
-        {
-            return View();
-        }
-
         public ActionResult CreateQuiz()
         {
             return View();
@@ -38,7 +33,7 @@ namespace QuizComputation_490.Controllers
         public ActionResult CreateQuiz(QuizModel newQuiz)
         {
             _admin.CreateQuiz(newQuiz, UserSession.UserID);
-            return RedirectToAction("GetAllQuizes");
+            return RedirectToAction("GetAllQuiz");
         }
         public ActionResult GetAllQuiz()
         {

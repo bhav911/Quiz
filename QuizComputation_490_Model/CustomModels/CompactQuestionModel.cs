@@ -16,8 +16,8 @@ namespace QuizComputation_490_Model.CustomModels
         [MaxLength(length: 200, ErrorMessage = "Question too long")]
         public string QuestionText { get; set; }
 
-        public int FirstQuestionID { get; set; }
-        public int LastQuestionID { get; set; }
+        //public int FirstQuestionID { get; set; }
+        //public int LastQuestionID { get; set; }
         public List<string> OptionList { get; set; }
 
         public CompactQuestionModel()

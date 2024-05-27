@@ -17,7 +17,7 @@
     });
     $('#Submit-Quiz').on('click', function () {
         debugger
-        let question = @Model.LastQuestionID;
+        let question = @Model.QuestionID;
         if (UserAnswer[question] != null)
             SubmitQuiz(@Model.QuizID);
     })
@@ -36,9 +36,13 @@
 
 </script>
 
+@{ 
+    int currentQuestion = (Model.QuestionID - 1) % 5 + 1;
+}
+
 <div>
     <div class="d-flex justify-content-between">
-        <p>Question @(Model.QuestionID - Model.FirstQuestionID + 1) </p>
+        <p>Question @currentQuestion</p>
         <div>
             @*optional*@
             @Html.ActionLink("End Quiz", "StartQuiz", "User", new { @quizID = Model.QuizID }, new { @class="btn btn-danger btn-sm" })
@@ -55,11 +59,11 @@
     </div>
     <div class="gap-2 d-flex justify-content-end">
         @{ 
-            if(Model.FirstQuestionID != Model.QuestionID)
+            if(currentQuestion != 1)
             {
                 <button class="btn btn-sm btn-secondary previous-button">&lt;</button>
             }
-            if(Model.LastQuestionID != Model.QuestionID)
+            if(currentQuestion != 5)
             {
                 <button class="btn btn-sm btn-secondary next-button">&gt;</button>
             }
@@ -67,7 +71,7 @@
     </div>
     <div class="d-flex justify-content-center">
         @{ 
-            if(Model.LastQuestionID == Model.QuestionID)
+            if(currentQuestion == 5)
             {
                 <button class="btn btn-success" id="Submit-Quiz">Submit</button>
             }
