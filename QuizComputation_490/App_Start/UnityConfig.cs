@@ -20,6 +20,7 @@ namespace QuizComputation_490
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
             container.RegisterType<IAdminInterface, AdminService>();
             container.RegisterType<IUserInterface, UserService>();
+            container.RegisterType<IQuizInterface, QuizService>();
         }
     }
 }

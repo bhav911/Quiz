@@ -1,5 +1,6 @@
 ﻿using OnlineStoreHelper.Helpers;
 using QuizComputation_490.Session;
+using QuizComputation_490_Helper.Helpers;
 using QuizComputation_490_Model.Context;
 using QuizComputation_490_Model.CustomModels;
 using QuizComputation_490_Repository.Interface;
@@ -11,6 +12,8 @@ using System.Web.Mvc;
 
 namespace QuizComputation_490.Controllers
 {
+
+    [CustomAuthorizeHelper]
     public class AdminController : Controller
     {
         private readonly IAdminInterface _admin;

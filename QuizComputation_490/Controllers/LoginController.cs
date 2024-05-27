@@ -84,5 +84,10 @@ namespace QuizComputation_490.Controllers
             Session.Clear();
             return RedirectToAction("SignIn");
         }
+
+        public ActionResult RedirectToLogin(string err)
+        {
+            return RedirectToAction("SignIn");
+        }
     }
 }

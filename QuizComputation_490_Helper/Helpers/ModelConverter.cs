@@ -61,7 +61,8 @@ namespace OnlineStoreHelper.Helpers
             {
                 QuizID = quiz.quizID,
                 QuizTitle = quiz.title,
-                QuizDescription = quiz.description
+                QuizDescription = quiz.description,
+                FirstQuestionID = quiz.Questions.OrderBy(q => q.questionID).FirstOrDefault().questionID 
             };
 
             quizModel.QuizQuestionList = ConvertQuestionListToQuestionModelList(quiz.Questions.ToList());
@@ -85,6 +86,44 @@ namespace OnlineStoreHelper.Helpers
             }
 
             return questionModelList;
+        }
+
+        public static QuestionModel ConvertQuestionToQuestionModel(Questions question)
+        {
+            QuestionModel questionModel = new QuestionModel
+            {
+                QuestionID =question.questionID,
+                QuestionText= question.questionText
+            };
+
+            foreach(Options option in question.Options)
+            {
+                OptionModel newOption = new OptionModel()
+                {
+                    OptionText = option.optionText,
+                    OptionID = option.optionID
+                };
+                questionModel.OptionList.Add(newOption);
+            }
+            
+            return questionModel;
+        }
+
+        public static CompactQuestionModel ConvertQuestionToCompactQuestionModel(Questions question)
+        {
+            CompactQuestionModel questionModel = new CompactQuestionModel
+            {
+                QuestionID = question.questionID,
+                QuestionText = question.questionText,
+                QuizID = (int)question.quizID
+            };
+
+            foreach (Options option in question.Options)
+            {
+                questionModel.OptionList.Add(option.optionText);
+            }
+
+            return questionModel;
         }
 
         public static List<OptionModel> ConvertOptionListToOptionModelList(List<Options> optionList)

@@ -1,0 +1,29 @@
+﻿@model QuizComputation_490_Model.CustomModels.ResultModel
+
+<script>
+    $('#see-answer-btn').on('click', function () {
+        $.ajax({
+
+        })
+    });
+</script>
+
+<p>Correct Answer: <span class="fw-bold">@(Model.score/Model.TotalQuestions)/@Model.TotalQuestions</span></p>
+
+<p>Your Score: <span class="fw-bold">@Model.score</span></p>
+
+@{ 
+    int passingScore = (Model.TotalQuestions * 5) / 30 * 100;
+    if(Model.score > passingScore) { 
+        <p>Status:<span class="text-success">PASS</span></p>    
+    }
+    else
+    {
+        <p>Status:<span class="text-danger">FAIL</span></p>    
+    }
+}
+
+<div class="d-flex justify-content-center gap-2 mt-5">
+    <button class="btn btn-info"id="see-answer-btn">See Answers</button>
+    @Html.ActionLink("Back To Home", "GetAllQuizes", "User", null, new { @class="btn btn-secondary" })
+</div>

@@ -23,5 +23,6 @@ namespace QuizComputation_490_Repository.Services
             Users result = db.Users.Where(u => u.email == credentials.Login_email && u.password == credentials.Login_password).FirstOrDefault();
             return result;
         }
+               
     }
 }
