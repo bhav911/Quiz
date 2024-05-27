@@ -50,5 +50,13 @@ namespace QuizComputation_490.Controllers
             QuizModel quizModel = ModelConverter.ConvertQuizToQuizModel(quiz);
             return View("CreateQuiz", quizModel);
         }
+
+        //[HttpPost]
+        //public ActionResult EditQuiz(QuizModel newQuiz)
+        //{
+        //    Quizzes quiz = _admin.GetQuiz(quizID);
+        //    QuizModel quizModel = ModelConverter.ConvertQuizToQuizModel(quiz);
+        //    return View("CreateQuiz", quizModel);
+        //}
     }
 }
