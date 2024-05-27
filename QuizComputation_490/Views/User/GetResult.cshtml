@@ -1,0 +1,24 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_ResultLayout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/User/SeeAnswers?quizID=" + @ViewBag.quizID,
+            type: "GET",
+            dataType: "html",
+            success: function (response) {
+                $('#result-holder').html(response);
+            },
+            error: function (err) {
+
+            }
+        })
+    });
+</script>
+
+<div id="result-holder">
+
+</div>

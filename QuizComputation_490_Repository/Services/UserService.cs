@@ -23,5 +23,22 @@ namespace QuizComputation_490_Repository.Services
             Users result = db.Users.Where(u => u.email == credentials.Login_email && u.password == credentials.Login_password).FirstOrDefault();
             return result;
         }
+
+        public Users GetProfile(int userID)
+        {
+            Users user = db.Users.FirstOrDefault(u => u.userID == userID);
+            return user;
+        }
+
+        public void updateProfile(NewRegistration updatedInfo, int userID)
+        {
+            Users user = db.Users.FirstOrDefault(u => u.userID == userID);
+            user.username = updatedInfo.Username;
+            user.password = updatedInfo.Password;
+            user.email = updatedInfo.Email;
+            user.updatedAt = System.DateTime.Now;
+            db.SaveChanges();
+        }
+
     }
 }

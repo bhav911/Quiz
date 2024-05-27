@@ -11,8 +11,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script>
+        function togglePassword() {
+            debugger
+            let element = $('.toggle-password')[0];
+            if ($(element).attr('type') === "text") {
+                $(element).attr('type', 'password')
+            }
+            else {
+                $(element).attr('type', 'text')
+            }
+        }
+    </script>
 </head>
 <body>
     <section style="padding: 7em 0;">
@@ -20,7 +33,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-7 col-lg-9">
                     <div class="wrap border" style="box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24); background: #fff; border-radius: 5px; ">
-                        <div style="height: 300px; background-image: url(https://img.freepik.com/free-vector/stores-closed-pandemic-concept_23-2148507420.jpg?size=626&ext=jpg);">
+                        <div style="height: 200px; background-image: url(https://www.easywp.com/wp-content/uploads/2023/01/EasyWP-6-WordPress-quiz-plugins-1-cover.png); background-size: cover ">
                         </div>
                         <div class="login-wrap p-4 p-md-5">
                             @RenderBody()

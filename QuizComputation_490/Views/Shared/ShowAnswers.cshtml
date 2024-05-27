@@ -1,0 +1,74 @@
+﻿@model List<QuizComputation_490_Model.CustomModels.ResultAnswerModel>
+
+@{ 
+    int correctAnswer = 0;
+    double passingScore = (Model.Count() * 5) * 0.3;
+    foreach (var question in Model)
+    {
+        if (question.UserSelectedOption == question.correctOption)
+        {
+            correctAnswer++;
+        }
+    }
+}
+
+<table class="table container-fluid table-bordered">
+    <tbody class="fs-4">
+        <tr>
+            <td class="text-center">Correct: <span class="fw-bold">@correctAnswer / @Model.Count()</span></td>
+            <td class="text-center">Score: <span class="fw-bold">@(correctAnswer * 5)</span></td>
+            @{ 
+                if((correctAnswer * 5) > passingScore){ 
+                    <td class="text-center">Status: <span class="fw-bold text-success">PASS</span></td>
+                }
+                else
+                {
+                    <td class="text-center">Status: <span class="fw-bold text-danger">FAIL</span></td>
+                }
+            }
+        </tr>
+    </tbody>
+</table>
+
+<div class="p-5 border">
+
+@{
+    for (int j = 1; j <= 5; j++)
+    {
+        var question = Model[(@j-1)];
+        <p>Question @j</p>
+        <p class="fw-bold fs-3">@question.questionText</p>
+        for (int i = 0; i < 4; i++)
+        {
+            string option = question.optionsText[@i];
+
+            if (@i != question.UserSelectedOption && @i != question.correctOption)
+            {
+                <p class="form-control text-start p-2 bg-secondary-subtle">(@((char)('A' + i))) @option</p>
+                continue;
+            }
+            if (question.UserSelectedOption == question.correctOption)
+            {
+                <p class="form-control text-start p-2 bg-success text-white">(@((char)('A' + i))) @option</p>
+                continue;
+            }
+            if (@i == question.correctOption)
+            {
+                <p class="form-control text-start p-2 bg-success text-white">(@((char)('A' + i))) @option</p>
+                continue;
+            }
+            if (@i == question.UserSelectedOption)
+            {
+                <p class="form-control text-start p-2 bg-danger text-white">(@((char)('A' + i))) @option</p>
+                continue;
+            }
+        }
+        <hr class="my-3"/>
+
+    };
+}
+
+<div class="d-flex justify-content-center mt-5">
+    @Html.ActionLink("Back to home", "GetAllQuizes", "User", new { @class="btn btn-secondary" })    
+</div>
+</div>

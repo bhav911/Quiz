@@ -17,6 +17,7 @@ namespace QuizComputation_490.Controllers
         private readonly IAdminInterface _admin;
         private readonly IUserInterface _user;
 
+
         public LoginController(IAdminInterface admin, IUserInterface user)
         {
             _admin = admin;
@@ -38,7 +39,7 @@ namespace QuizComputation_490.Controllers
                     Admins admin = _admin.AuthenticateAdmin(credential);
                     if (admin != null)
                     {
-                        TempData["Role"] = "Owner";
+                        TempData["Role"] = "Admin";
                         UserSession.UserID = admin.adminID;
                         UserSession.Username = admin.username;
                         UserSession.UserRole = credential.Role;
@@ -82,6 +83,11 @@ namespace QuizComputation_490.Controllers
         public ActionResult SignOut()
         {
             Session.Clear();
+            return RedirectToAction("SignIn");
+        }
+
+        public ActionResult RedirectToLogin(string err)
+        {
             return RedirectToAction("SignIn");
         }
     }

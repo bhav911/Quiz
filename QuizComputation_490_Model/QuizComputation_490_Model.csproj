@@ -89,11 +89,15 @@
     <Compile Include="Context\Users.cs">
       <DependentUpon>QuizComputation_490.tt</DependentUpon>
     </Compile>
+    <Compile Include="CustomModels\CompactQuestionModel.cs" />
     <Compile Include="CustomModels\LoginModel.cs" />
     <Compile Include="CustomModels\NewRegistration.cs" />
     <Compile Include="CustomModels\OptionModel.cs" />
     <Compile Include="CustomModels\QuizModel.cs" />
     <Compile Include="CustomModels\QuestionModel.cs" />
+    <Compile Include="CustomModels\AnswerModel.cs" />
+    <Compile Include="CustomModels\ResultAnswerModel.cs" />
+    <Compile Include="CustomModels\ResultModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

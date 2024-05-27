@@ -26,3 +26,31 @@ C:\Bhavya_Modhiya\Training_tasks\dotnet training codes\QuizComputation_490\QuizC
 C:\Bhavya_Modhiya\Training_tasks\dotnet training codes\QuizComputation_490\QuizComputation_490\QuizComputation_490_Helper\obj\Debug\QuizComputation_490_Helper.csproj.CopyComplete
 C:\Bhavya_Modhiya\Training_tasks\dotnet training codes\QuizComputation_490\QuizComputation_490\QuizComputation_490_Helper\obj\Debug\QuizComputation_490_Helper.dll
 C:\Bhavya_Modhiya\Training_tasks\dotnet training codes\QuizComputation_490\QuizComputation_490\QuizComputation_490_Helper\obj\Debug\QuizComputation_490_Helper.pdb
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\QuizComputation_490_Helper.dll.config
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\QuizComputation_490_Helper.dll
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\QuizComputation_490_Helper.pdb
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\EntityFramework.dll
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\EntityFramework.SqlServer.dll
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\QuizComputation_490_Model.dll
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\System.Web.Helpers.dll
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\System.Web.Mvc.dll
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\System.Web.Razor.dll
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\System.Web.WebPages.dll
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\System.Web.WebPages.Razor.dll
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\QuizComputation_490_Model.pdb
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\QuizComputation_490_Model.dll.config
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\EntityFramework.xml
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\EntityFramework.SqlServer.xml
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\System.Web.Helpers.xml
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\System.Web.Mvc.xml
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\System.Web.Razor.xml
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\System.Web.WebPages.xml
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\dotnet\Quiz\QuizComputation_490_Helper\bin\Debug\System.Web.WebPages.Razor.xml
+D:\dotnet\Quiz\QuizComputation_490_Helper\obj\Debug\QuizComputation_490_Helper.csproj.AssemblyReference.cache
+D:\dotnet\Quiz\QuizComputation_490_Helper\obj\Debug\QuizComputation_490_Helper.csproj.CoreCompileInputs.cache
+D:\dotnet\Quiz\QuizComputation_490_Helper\obj\Debug\QuizComputation_490_Helper.csproj.CopyComplete
+D:\dotnet\Quiz\QuizComputation_490_Helper\obj\Debug\QuizComputation_490_Helper.dll
+D:\dotnet\Quiz\QuizComputation_490_Helper\obj\Debug\QuizComputation_490_Helper.pdb

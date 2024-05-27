@@ -1,0 +1,106 @@
+﻿@model QuizComputation_490_Model.CustomModels.QuizModel
+
+@{
+    Layout = "~/Views/Shared/_QuizLayout.cshtml";
+}
+
+<script>
+    let UserAnswer = {}
+
+    function SubmitQuiz(quizID) {
+        debugger
+        let submitObject = {
+            questions: [],
+            answers: []
+        }
+
+        $.each(UserAnswer, (ind, ele) => {
+            debugger
+            submitObject.questions.push(ind);
+            submitObject.answers.push(ele);
+        })
+
+        debugger
+
+        $.ajax({
+            url: "/User/SaveAnswers?quizID=" + quizID,
+            type: "POST",
+            content: 'application/json',
+            dataType:'html',
+            data: submitObject,
+            success: function (response) {
+                debugger
+                $('#QuestionHolder').html(response);
+            },
+            error: function (err) {
+                debugger
+                console.log(err);
+            }
+        })
+    }
+
+    function SeeAnswer(quizID) {
+        $.ajax({
+            url: "/User/SeeAnswers?quizID=" + quizID,
+            type: "GET",
+            dataType: "html",
+            success: function (response) {
+                $('#QuestionHolder').html(response);
+            },
+            error: function (err) {
+
+            }
+        })
+    }
+
+    function GetQuestion(questionID) {
+        $.ajax({
+            url: "/User/GetQuestion?questionID=" + questionID,
+            type: "get",
+            success: function (response) {
+                debugger
+                $('#QuestionHolder').html(response);
+            },
+            error: function (err) {
+
+            }
+        })
+    }
+
+    function RegisterAnswer(questionID, optionID, ele) {
+        debugger
+        let parent = $(ele).closest('div');
+        $.each(parent.children(), (ind, ele) => {
+            $(ele).removeClass("btn-secondary");
+            $(ele).addClass("bg-secondary-subtle");
+        })
+
+
+        $(ele).removeClass("bg-secondary-subtle");
+        $(ele).addClass("btn-secondary")
+        UserAnswer[questionID] = optionID;
+    }
+</script>
+
+
+
+<section style="padding: 7em 0;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-9">
+                <div class="wrap border" style="box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24); background: #fff; border-radius: 5px; ">
+                    <div id="QuestionHolder" class="p-4">
+                        <div class="d-flex flex-column gap-4">
+                            <h3>@Model.QuizTitle</h3>
+                            <p>@Model.QuizDescription</p>
+                            <div class="d-flex justify-content-center gap-2">
+                                <button class="btn btn-primary" onclick="GetQuestion(@Model.FirstQuestionID)">Start</button>
+                                @Html.ActionLink("Home", "GetAllQuizes", null, new { @class = "btn btn-secondary" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

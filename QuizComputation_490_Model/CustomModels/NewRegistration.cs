@@ -9,6 +9,7 @@ namespace QuizComputation_490_Model.CustomModels
 {
     public class NewRegistration
     {
+        public string Userrole { get; set; }
         public int UserID { get; set; }
 
         [Required]

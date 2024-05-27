@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "_ResultLayout";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+</head>
+<body>
+    @Html.Partial("Header")
+    <div class="p-5 container">
+        @RenderBody();
+    </div>
+</body>
+</html>
+

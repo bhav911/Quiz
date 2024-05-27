@@ -1,0 +1,53 @@
+﻿@model List<QuizComputation_490_Model.CustomModels.QuizModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th class="text-nowrap">
+            Sr No.
+        </th>
+        <th>
+            Quiz
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Action
+        </th>
+    </tr>
+
+    @{ int counter = 1;}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @(counter++)
+            </td>
+            <td>
+                @item.QuizTitle
+            </td>
+            <td>
+                @item.QuizDescription
+            </td>
+            @{
+                if (item.isCompleted)
+                {
+                    <td>
+                        @Html.ActionLink("Results", "GetResult", "User", new { @quizID = item.QuizID }, new { @class = "btn btn-success" })
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.ActionLink("Start", "StartQuiz", "User", new { @quizID = item.QuizID }, new { @class = "btn btn-primary" })
+                    </td>
+                }
+            }
+        </tr>
+    }
+
+</table>

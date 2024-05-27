@@ -1,5 +1,6 @@
 ﻿using OnlineStoreHelper.Helpers;
 using QuizComputation_490.Session;
+using QuizComputation_490_Helper.Helpers;
 using QuizComputation_490_Model.Context;
 using QuizComputation_490_Model.CustomModels;
 using QuizComputation_490_Repository.Interface;
@@ -11,6 +12,9 @@ using System.Web.Mvc;
 
 namespace QuizComputation_490.Controllers
 {
+
+    [CustomAuthorizeHelper]
+    [AdminCustomAuthenticateJHelper]
     public class AdminController : Controller
     {
         private readonly IAdminInterface _admin;
@@ -27,36 +31,69 @@ namespace QuizComputation_490.Controllers
 
         public ActionResult CreateQuiz()
         {
-            return View() ;
+            return View();
         }
 
         [HttpPost]
         public ActionResult CreateQuiz(QuizModel newQuiz)
         {
             _admin.CreateQuiz(newQuiz, UserSession.UserID);
-            return View(newQuiz);
+            return RedirectToAction("GetAllQuizes");
         }
         public ActionResult GetAllQuiz()
         {
             List<Quizzes> quizList = _admin.GetAllQuiz(UserSession.UserID);
-            List<QuizModel> quizModelList = ModelConverter.ConvertQuizListToQuizModelList(quizList);
+            List<QuizModel> quizModelList = ModelConverter.ConvertQuizListToQuizModelList(quizList, UserSession.UserID);
             return View(quizModelList);
 
         }
 
         public ActionResult EditQuiz(int quizID)
         {
-            Quizzes quiz = _admin.GetQuiz(quizID);
-            QuizModel quizModel = ModelConverter.ConvertQuizToQuizModel(quiz);
+            Quizzes quiz = _admin.GetQuiz(quizID, UserSession.UserID);
+            QuizModel quizModel = ModelConverter.ConvertQuizToQuizModel(quiz, UserSession.UserID);
             return View("CreateQuiz", quizModel);
         }
 
-        //[HttpPost]
-        //public ActionResult EditQuiz(QuizModel newQuiz)
-        //{
-        //    Quizzes quiz = _admin.GetQuiz(quizID);
-        //    QuizModel quizModel = ModelConverter.ConvertQuizToQuizModel(quiz);
-        //    return View("CreateQuiz", quizModel);
-        //}
+
+        [HttpPost]
+        public ActionResult EditQuiz(QuizModel updatedQuiz)
+        {
+            bool status = _admin.UpdateQuiz(updatedQuiz, UserSession.UserID);
+            return RedirectToAction("GetAllQuiz");
+        }
+
+        public ActionResult DeleteQuiz(int quizID)
+        {
+            bool status = _admin.DeleteQuiz(quizID);
+            return RedirectToAction("GetAllQuiz");
+        }
+
+        public ActionResult ShowProfile()
+        {
+            Admins admin = _admin.GetProfile(UserSession.UserID);
+            NewRegistration result = ModelConverter.ConvertAdminToNewAdmin(admin);
+            return View(result);
+        }
+
+        public ActionResult Unauthorize()
+        {
+            return View();
+        }
+
+        [System.Web.Mvc.HttpPost]
+        public ActionResult EditProfile(NewRegistration updatedInfo)
+        {
+            _admin.updateProfile(updatedInfo, UserSession.UserID);
+            return RedirectToAction("ShowProfile");
+        }
+
+        public ActionResult EditProfile()
+        {
+            Admins admin = _admin.GetProfile(UserSession.UserID);
+            NewRegistration result = ModelConverter.ConvertAdminToNewAdmin(admin);
+            return View(result);
+        }
+
     }
 }

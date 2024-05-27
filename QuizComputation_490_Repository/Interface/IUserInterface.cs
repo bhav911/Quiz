@@ -12,5 +12,7 @@ namespace QuizComputation_490_Repository.Interface
     {
         void RegisterUser(Users newUser);
         Users AuthenticateUser(LoginModel credentials);
+        Users GetProfile(int userID);
+        void updateProfile(NewRegistration updatedInfo, int userID);
     }
 }

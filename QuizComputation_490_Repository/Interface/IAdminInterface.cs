@@ -13,6 +13,10 @@ namespace QuizComputation_490_Repository.Interface
         Admins AuthenticateAdmin(LoginModel credentials);
         bool CreateQuiz(QuizModel newQuiz, int adminID);
         List<Quizzes> GetAllQuiz(int adminID);
-        Quizzes GetQuiz(int adminID);
+        Quizzes GetQuiz(int quizID, int adminID);
+        bool UpdateQuiz(QuizModel updatedQuiz, int adminID);
+        bool DeleteQuiz(int adminID);
+        Admins GetProfile(int adminID);
+        void updateProfile(NewRegistration updatedInfo, int userID);
     }
 }

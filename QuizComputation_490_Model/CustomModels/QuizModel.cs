@@ -15,9 +15,12 @@ namespace QuizComputation_490_Model.CustomModels
         [MaxLength(length:100, ErrorMessage ="Title too long")]
         public string QuizTitle { get; set; }
 
+        public int FirstQuestionID { get; set; }
+
         [Required]
         [MaxLength(length:250, ErrorMessage ="Description too long")]
         public string QuizDescription { get; set; }
         public List<QuestionModel> QuizQuestionList { get; set; }
+        public bool isCompleted { get; set; }
     }
 }

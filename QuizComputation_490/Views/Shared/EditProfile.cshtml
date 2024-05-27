@@ -1,0 +1,30 @@
+﻿@model QuizComputation_490_Model.CustomModels.NewRegistration
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <form method="post" id="signup">
+        <div class="form-floating mb-3">
+            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @placeholder = "" })
+            @Html.LabelFor(m => m.Username, "Username")
+            @Html.ValidationMessageFor(m => m.Username, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-floating mb-3">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "" })
+            @Html.LabelFor(m => m.Email, "Email")
+            @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-floating mb-3">
+            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @placeholder = "" })
+            @Html.LabelFor(m => m.Password, "Password")
+            @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" })
+        </div>
+
+        <div class="d-flex justify-content-center my-3 gap-2">
+            <button type="submit" class="btn btn-success">Save</button>
+            @Html.ActionLink("Cancel", "ShowProfile", null, new { @class = "btn btn-secondary" })
+        </div>
+    </form>
+</div>
