@@ -31,16 +31,16 @@
 </head>
 <body>
     @{
-        if (ViewBag.success != null && ViewBag.success != "")
+        if (TempData["success"] != null && TempData["success"] != "")
         {
             <script>
-                toastr.success('@ViewBag.success')
+                toastr.success('@TempData["success"]');
             </script>
         }
-        if (ViewBag.error != null && ViewBag.error != "")
+        if (TempData["error"] != null && TempData["error"] != "")
         {
             <script>
-                toastr.error('@ViewBag.error')
+                toastr.error('@TempData["error"]')
             </script>
         }
     }

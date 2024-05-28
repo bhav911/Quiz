@@ -43,7 +43,7 @@ namespace QuizComputation_490.Controllers
                     NewRegistration admin = JsonConvert.DeserializeObject<NewRegistration>(response);
                     if (admin != null)
                     {
-                        ViewBag.success = "Successfully Logged In";
+                        TempData["success"] = "Successfully Logged In";
                         TempData["Role"] = "Admin";
                         UserSession.UserID = admin.UserID;
                         UserSession.Username = admin.Username;
@@ -57,7 +57,7 @@ namespace QuizComputation_490.Controllers
                     NewRegistration user = JsonConvert.DeserializeObject<NewRegistration>(response);
                     if (user != null)
                     {
-                        ViewBag.success = "Successfully Logged In";
+                        TempData["success"] = "Successfully Logged In";
                         TempData["Role"] = "User";
                         UserSession.UserID = user.UserID;
                         UserSession.Username = user.Username;
@@ -65,7 +65,7 @@ namespace QuizComputation_490.Controllers
                         return RedirectToAction("GetAllQuizes", "User");
                     }
                 }
-                ViewBag.error = "Invalid Credentials";
+                TempData["error"] = "Invalid Credentials";
             }
 
             return View(credential);
@@ -83,17 +83,17 @@ namespace QuizComputation_490.Controllers
             if (ModelState.IsValid)
             {
                 string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponsePost("api/LoginAPI/SignUp", JsonConvert.SerializeObject(newUser));
-                ViewBag.success = "User registered Successfully";
+                TempData["success"] = "User registered Successfully";
                 return RedirectToAction("SignIn");
             }
-            ViewBag.error = "Form contains invalid fields";
+            TempData["error"] = "Form contains invalid fields";
             return View(newUser);
         }
 
         public ActionResult SignOut()
         {
             Session.Clear();
-            ViewBag.success = "Successfully Logged Out";
+            TempData["success"] = "Successfully Logged Out";
             return RedirectToAction("SignIn");
         }
 

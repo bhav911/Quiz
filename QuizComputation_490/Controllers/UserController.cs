@@ -40,7 +40,7 @@ namespace QuizComputation_490.Controllers
         {
             string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponsePost($"api/UserAPI/EditProfile?userID={UserSession.UserID}", JsonConvert.SerializeObject(updatedInfo));
             _user.updateProfile(updatedInfo, UserSession.UserID);
-            ViewBag.success = "Updated Profile Successfully";
+            TempData["success"] = "Updated Profile Successfully";
             return RedirectToAction("ShowProfile");
         }
 
@@ -94,7 +94,7 @@ namespace QuizComputation_490.Controllers
             };
             //for-scalability of question numbers
             //resultModel.TotalQuestions = _quiz.GetTotalQuestions(quizID);
-            ViewBag.success = "Successfully submited your response";
+            TempData["success"] = "Successfully submited your response";
             return PartialView("ResultBox", resultModel);
         }
 

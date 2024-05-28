@@ -38,14 +38,14 @@ namespace QuizComputation_490.Controllers
             {
                 if (!CheckIfOptionIsSelected(newQuiz))
                 {
-                    ViewBag.error = "You missed to select correct option for some question";
+                    TempData["error"] = "You missed to select correct option for some question";
                     return View(newQuiz);
                 }
                 string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponsePost($"api/AdminAPI/CreateQuiz?adminID={UserSession.UserID}", JsonConvert.SerializeObject(newQuiz));
-                ViewBag.success = "Quiz Created Successfully";
+                TempData["success"] = "Quiz Created Successfully";
                 return RedirectToAction("GetAllQuiz");
             }
-            ViewBag.error = "Quiz Contains Invalid Fields";
+            TempData["error"] = "Quiz Contains Invalid Fields";
             return View(newQuiz);
         }
         private bool CheckIfOptionIsSelected(QuizModel newQuiz)
@@ -90,17 +90,17 @@ namespace QuizComputation_490.Controllers
             if (ModelState.IsValid)
             {
                 string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponsePost($"api/AdminAPI/EditQuiz?adminID={UserSession.UserID}", JsonConvert.SerializeObject(updatedQuiz));
-                ViewBag.success = "Quiz Edited Successfully";
+                TempData["success"] = "Quiz Updated Successfully";
                 return RedirectToAction("GetAllQuiz");
             }
-            ViewBag.error = "Quiz Contains Invalid Fields";
+            TempData["error"] = "Quiz Contains Invalid Fields";
             return View("CreateQuiz", updatedQuiz);
         }
 
         public async Task<ActionResult> DeleteQuiz(int quizID)
         {
             string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponseGet($"api/AdminAPI/DeleteQuiz?quizID={quizID}");
-            ViewBag.success = "Quiz Deleted Successfully";
+            TempData["success"] = "Quiz Deleted Successfully";
             return RedirectToAction("GetAllQuiz");
         }
 
@@ -121,7 +121,7 @@ namespace QuizComputation_490.Controllers
         public async Task<ActionResult> EditProfile(NewRegistration updatedInfo)
         {
             string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponsePost($"api/AdminAPI/EditProfile?adminID={UserSession.UserID}", JsonConvert.SerializeObject(updatedInfo));
-            ViewBag.success = "Profile Updated Successfully";
+            TempData["success"] = "Profile Updated Successfully";
             return RedirectToAction("ShowProfile");
         }
 
