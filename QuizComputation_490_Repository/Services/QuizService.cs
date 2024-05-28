@@ -17,127 +17,191 @@ namespace QuizComputation_490_Repository.Services
         private readonly QuizComputation_490Entities db = new QuizComputation_490Entities();
         public List<Quizzes> GetAllQuiz()
         {
-            List<Quizzes> quizModelList = db.Quizzes.ToList();
-            return quizModelList;
+            try
+            {
+                List<Quizzes> quizModelList = db.Quizzes.ToList();
+                return quizModelList;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public Quizzes GetQuiz(int quizID)
         {
-            Quizzes quiz = db.Quizzes.Where(q => q.quizID == quizID).FirstOrDefault();
-            return quiz;
+            try
+            {
+                Quizzes quiz = db.Quizzes.Where(q => q.quizID == quizID).FirstOrDefault();
+                return quiz;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public Questions GetQuestion(int questionID)
         {
-            Questions question = db.Questions.Where(q => q.questionID == questionID).FirstOrDefault();
-            return question;
+            try
+            {
+                Questions question = db.Questions.Where(q => q.questionID == questionID).FirstOrDefault();
+                return question;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public int GetFirstQuestionID(int quizID)
         {
-            Quizzes quiz = db.Quizzes.Where(q => q.quizID == quizID).FirstOrDefault();
-            int queID = quiz.Questions.OrderBy(q => q.questionID).FirstOrDefault().questionID;
-            return quizID;
+            try
+            {
+                Quizzes quiz = db.Quizzes.Where(q => q.quizID == quizID).FirstOrDefault();
+                int queID = quiz.Questions.OrderBy(q => q.questionID).FirstOrDefault().questionID;
+                return quizID;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public int GetLastQuestionID(int quizID)
         {
-            Quizzes quiz = db.Quizzes.Where(q => q.quizID == quizID).FirstOrDefault();
-            int queID = quiz.Questions.OrderBy(q => q.questionID).LastOrDefault().questionID;
-            return queID;
+            try
+            {
+                Quizzes quiz = db.Quizzes.Where(q => q.quizID == quizID).FirstOrDefault();
+                int queID = quiz.Questions.OrderBy(q => q.questionID).LastOrDefault().questionID;
+                return queID;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public int SubmitAnswer(AnswerModel answerModel, int userID)
         {
-            SqlConnection con = new SqlConnection("Data Source=182.70.118.201,1580;Initial Catalog=QuizComputation_490;user id=sa;password=sit@123;");
-            con.Open();
-
-
-            for (int it = 0; it < 5; it++)
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("SubmitUserAnswer", con))
+                SqlConnection con = new SqlConnection("Data Source=182.70.118.201,1580;Initial Catalog=QuizComputation_490;user id=sa;password=sit@123;");
+                con.Open();
+
+
+                for (int it = 0; it < 5; it++)
+                {
+                    using (SqlCommand cmd = new SqlCommand("SubmitUserAnswer", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@quizID", answerModel.quizID);
+                        cmd.Parameters.AddWithValue("@userID", userID);
+                        cmd.Parameters.AddWithValue("@questionID", answerModel.Questions[it]);
+                        cmd.Parameters.AddWithValue("@optionOffset", answerModel.Answers[it]);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            { }
+                        }
+                    }
+                }
+
+                int score = 0;
+
+                using (SqlCommand cmd = new SqlCommand("InsertUserScore", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue("@quizID", answerModel.quizID);
                     cmd.Parameters.AddWithValue("@userID", userID);
-                    cmd.Parameters.AddWithValue("@questionID", answerModel.Questions[it]);
-                    cmd.Parameters.AddWithValue("@optionOffset", answerModel.Answers[it]);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
-                        {}
+                        {
+                            score = (int)reader["score"];
+                        }
                     }
                 }
+
+                con.Close();
+                return score;
             }
-
-            int score = 0;
-
-            using (SqlCommand cmd = new SqlCommand("InsertUserScore", con))
+            catch (Exception ex)
             {
-                cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("@quizID", answerModel.quizID);
-                cmd.Parameters.AddWithValue("@userID", userID);
-
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        score = (int)reader["score"];
-                    }
-                }
+                throw ex;
             }
-
-            con.Close();
-            return score;
         }
 
         public int GetTotalQuestions(int quizID)
         {
-            int totalQuestions = db.Questions.Where(q => q.quizID == quizID).Count();
-            return totalQuestions;
+            try
+            {
+                int totalQuestions = db.Questions.Where(q => q.quizID == quizID).Count();
+                return totalQuestions;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public List<ResultAnswerModel> GetUserResult(int quizID,  int userID)
         {
-            List<ResultAnswerModel> resultAnswerModelList = new List<ResultAnswerModel>();
-
-            SqlConnection con = new SqlConnection("Data Source=182.70.118.201,1580;Initial Catalog=QuizComputation_490;user id=sa;password=sit@123;");
-            con.Open();
-
-            using (SqlCommand cmd = new SqlCommand("GetUserResult", con))
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@quizID", quizID);
-                cmd.Parameters.AddWithValue("@userID", userID);
+                List<ResultAnswerModel> resultAnswerModelList = new List<ResultAnswerModel>();
 
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                SqlConnection con = new SqlConnection("Data Source=182.70.118.201,1580;Initial Catalog=QuizComputation_490;user id=sa;password=sit@123;");
+                con.Open();
+
+                using (SqlCommand cmd = new SqlCommand("GetUserResult", con))
                 {
-                    while (reader.Read())
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@quizID", quizID);
+                    cmd.Parameters.AddWithValue("@userID", userID);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        ResultAnswerModel resultAnswerModel = new ResultAnswerModel()
+                        while (reader.Read())
                         {
-                            correctOption = ((int)reader["Correct Option"] - 1) % 4,
-                            UserSelectedOption = ((int)reader["User Selected Option"] - 1) % 4,
-                            optionsText = new List<string>()
-                        };
-                        int questionID = (int)reader["questionID"];
-                        Questions question = db.Questions.Where(q => q.questionID == questionID).FirstOrDefault();
-                        resultAnswerModel.questionText = question.questionText;
-                        foreach(Options option in question.Options)
-                        {
-                            resultAnswerModel.optionsText.Add(option.optionText);
+                            ResultAnswerModel resultAnswerModel = new ResultAnswerModel()
+                            {
+                                correctOption = ((int)reader["Correct Option"] - 1) % 4,
+                                UserSelectedOption = ((int)reader["User Selected Option"] - 1) % 4,
+                                optionsText = new List<string>()
+                            };
+                            int questionID = (int)reader["questionID"];
+                            Questions question = db.Questions.Where(q => q.questionID == questionID).FirstOrDefault();
+                            resultAnswerModel.questionText = question.questionText;
+                            foreach (Options option in question.Options)
+                            {
+                                resultAnswerModel.optionsText.Add(option.optionText);
+                            }
+                            resultAnswerModelList.Add(resultAnswerModel);
                         }
-                        resultAnswerModelList.Add(resultAnswerModel);
                     }
                 }
-            }
 
-            con.Close();
-            return resultAnswerModelList;
+                con.Close();
+                return resultAnswerModelList;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
     }
 }

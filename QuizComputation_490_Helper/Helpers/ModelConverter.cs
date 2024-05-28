@@ -38,6 +38,20 @@ namespace OnlineStoreHelper.Helpers
             return newRegistration;
         }
 
+        public static NewRegistration ConvertAdminToNewUser(Admins user)
+        {
+            NewRegistration newRegistration = new NewRegistration()
+            {
+                Userrole = "User",
+                UserID = user.adminID,
+                Email = user.email,
+                Username = user.username,
+                Password = user.password
+            };
+
+            return newRegistration;
+        }
+
         public static NewRegistration ConvertAdminToNewAdmin(Admins admin)
         {
             NewRegistration newRegistration = new NewRegistration()
@@ -84,7 +98,7 @@ namespace OnlineStoreHelper.Helpers
             return quizModelList;
         }
 
-        public static QuizModel ConvertQuizToQuizModel(Quizzes quiz, int userID)
+        public static QuizModel ConvertQuizToQuizModel(Quizzes quiz, int userID, string role)
         {
             QuizModel quizModel = new QuizModel()
             {
@@ -94,8 +108,8 @@ namespace OnlineStoreHelper.Helpers
                 FirstQuestionID = quiz.Questions.OrderBy(q => q.questionID).FirstOrDefault().questionID ,
                 isCompleted = quiz.Results.Where(q => q.quizID == quiz.quizID && q.userID == userID).FirstOrDefault() != null
             };
-
-            quizModel.QuizQuestionList = ConvertQuestionListToQuestionModelList(quiz.Questions.ToList());
+            if(role != "user")
+                quizModel.QuizQuestionList = ConvertQuestionListToQuestionModelList(quiz.Questions.ToList());
             return quizModel;
         }
 

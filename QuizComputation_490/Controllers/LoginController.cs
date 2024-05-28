@@ -1,4 +1,5 @@
-﻿using OnlineStoreHelper.Helpers;
+﻿using Newtonsoft.Json;
+using OnlineStoreHelper.Helpers;
 using QuizComputation_490.Session;
 using QuizComputation_490_Model.Context;
 using QuizComputation_490_Model.CustomModels;
@@ -7,6 +8,7 @@ using QuizComputation_490_Repository.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -29,39 +31,46 @@ namespace QuizComputation_490.Controllers
             return View();
         }
 
+        
         [HttpPost]
-        public ActionResult SignIn(LoginModel credential)
+        public async Task<ActionResult> SignIn(LoginModel credential)
         {
             if (ModelState.IsValid)
             {
                 if (credential.Role == "Admin")
                 {
-                    Admins admin = _admin.AuthenticateAdmin(credential);
+                    string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponsePost("api/LoginAPI/AuthenticateAdmin", JsonConvert.SerializeObject(credential));
+                    NewRegistration admin = JsonConvert.DeserializeObject<NewRegistration>(response);
                     if (admin != null)
                     {
+                        ViewBag.success = "Successfully Logged In";
                         TempData["Role"] = "Admin";
-                        UserSession.UserID = admin.adminID;
-                        UserSession.Username = admin.username;
+                        UserSession.UserID = admin.UserID;
+                        UserSession.Username = admin.Username;
                         UserSession.UserRole = credential.Role;
                         return RedirectToAction("GetAllQuiz", "Admin");
                     }
                 }
                 else if (credential.Role == "User")
                 {
-                    Users user = _user.AuthenticateUser(credential);
+                    string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponsePost("api/LoginAPI/AuthenticateUser", JsonConvert.SerializeObject(credential));
+                    NewRegistration user = JsonConvert.DeserializeObject<NewRegistration>(response);
                     if (user != null)
                     {
+                        ViewBag.success = "Successfully Logged In";
                         TempData["Role"] = "User";
-                        UserSession.UserID = user.userID;
-                        UserSession.Username = user.username;
+                        UserSession.UserID = user.UserID;
+                        UserSession.Username = user.Username;
                         UserSession.UserRole = credential.Role;
                         return RedirectToAction("GetAllQuizes", "User");
                     }
                 }
+                ViewBag.error = "Invalid Credentials";
             }
 
             return View(credential);
         }
+
 
         public ActionResult SignUp()
         {
@@ -69,20 +78,22 @@ namespace QuizComputation_490.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignUp(NewRegistration newUser)
+        public async Task<ActionResult> SignUp(NewRegistration newUser)
         {
             if (ModelState.IsValid)
-            {                
-                Users user = ModelConverter.ConvertNewUserToUser(newUser);
-                _user.RegisterUser(user);
+            {
+                string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponsePost("api/LoginAPI/SignUp", JsonConvert.SerializeObject(newUser));
+                ViewBag.success = "User registered Successfully";
                 return RedirectToAction("SignIn");
             }
+            ViewBag.error = "Form contains invalid fields";
             return View(newUser);
         }
 
         public ActionResult SignOut()
         {
             Session.Clear();
+            ViewBag.success = "Successfully Logged Out";
             return RedirectToAction("SignIn");
         }
 

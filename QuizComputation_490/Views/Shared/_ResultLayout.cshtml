@@ -14,8 +14,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <script src="~/Scripts/toastr.js"></script>
 </head>
 <body>
+    @{
+        if (ViewBag.success != null && ViewBag.success != "")
+        {
+            <script>
+                toastr.success('@ViewBag.success')
+            </script>
+        }
+        if (ViewBag.error != null && ViewBag.error != "")
+        {
+            <script>
+                toastr.error('@ViewBag.error')
+            </script>
+        }
+    }
     @Html.Partial("Header")
     <div class="p-5 container">
         @RenderBody();

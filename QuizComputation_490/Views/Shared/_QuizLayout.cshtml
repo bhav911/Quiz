@@ -11,8 +11,24 @@
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <script src="~/Scripts/toastr.js"></script>
 </head>
 <body>
+    @{
+        if (ViewBag.success != null && ViewBag.success != "")
+        {
+            <script>
+                toastr.success('@ViewBag.success')
+            </script>
+        }
+        if (ViewBag.error != null && ViewBag.error != "")
+        {
+            <script>
+                toastr.error('@ViewBag.error')
+            </script>
+        }
+    }
     @RenderBody();
 </body>
 </html>

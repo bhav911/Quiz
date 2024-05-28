@@ -5,9 +5,11 @@
 }
 
 <script>
+
     function addQuestion() {
         let NumOfQuestions = $('.question').length;
         if (NumOfQuestions == 5) {
+            toastr.warning("Can't add more than 5 Questions")
             return;
         }
         if (NumOfQuestions == 4) {
@@ -19,11 +21,11 @@
 
             let holder = $('#QuestionHolder');
             holder.append(`
-                <div class="question  mb-5">
+                <div class="question mb-5">
                     <div class="d-flex gap-4">
-                        <input type="text" name="QuizQuestionList.Index" value="${NumOfQuestions + 1}" hidden/>
+                        <input type="text" name="QuizQuestionList.Index" value="${NumOfQuestions}" hidden/>
                         <p class=" fs-4"> ${NumOfQuestions + 1}.</p>
-                        <input class = "form-control mb-3" name="QuizQuestionList[${NumOfQuestions + 1}].QuestionText" />
+                        <input class = "form-control mb-3" name="QuizQuestionList[${NumOfQuestions}].QuestionText" />
                     </div>
                     <div>
                         <div class="row">
@@ -31,14 +33,14 @@
                                 for (int option = 0; option < 4; option++)
                                 {
                                     <div class="col-6 d-flex align-items-center gap-4 mb-4">
-                                        <input hidden class = "form-control" name="QuizQuestionList[${NumOfQuestions + 1}].OptionList[@option].IsCorrect" value=false />
+                                        <input hidden class = "form-control" name="QuizQuestionList[${NumOfQuestions}].OptionList[@option].IsCorrect" value=false />
                                         <span class=" fs-4">(@((char)('A' + option)))</span>
-                                        <input class = "form-control" name="QuizQuestionList[${NumOfQuestions + 1}].OptionList[@option].OptionText" />
+                                        <input class = "form-control" name="QuizQuestionList[${NumOfQuestions}].OptionList[@option].OptionText" />
                                     </div>
                                 }
                             }
                             <div class="d-flex justify-content-end">
-                                <select onchange="bindCorrectAnswer(${NumOfQuestions + 1}, this)">
+                                <select onchange="bindCorrectAnswer(${NumOfQuestions}, this)">
                                     <option>Select Correct option</option>
                                     <option value=0>A</option>
                                     <option value=1>B</option>
@@ -80,9 +82,9 @@
             </div>
             <div class="col-12">
                 <div class="form-floating">
-                    @Html.TextAreaFor(m => m.QuizDescription, 10, 100, new { @class = "form-control", @placeholder = "" })
+                    @Html.TextAreaFor(m => m.QuizDescription, 5, 100, new { @class = "p-2 pt-5 border w-100 ps-3", @placeholder = "" })
                     @Html.LabelFor(m => m.QuizDescription, "Quiz Description")
-                    @Html.ValidationMessageFor(m => m.QuizQuestionList, null, new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(m => m.QuizDescription, null, new { @class = "text-danger" })
                 </div>
             </div>
         </div>
@@ -100,9 +102,12 @@
                         <div class="question">
                             <div class="d-flex gap-4">
                                 <p class=" fs-4"> @(item + 1).</p>
-                                <input type="text" name="QuizQuestionList.Index" value="@item" hidden />
-                                @Html.TextBoxFor(m => m.QuizQuestionList[item].QuestionText, new { @class = "form-control mb-3" })
-                                @Html.TextBoxFor(m => m.QuizQuestionList[item].QuestionID, new { @class = "form-control", @type = "hidden" })
+                                <div class="w-100 mb-3">
+                                    <input type="text" name="QuizQuestionList.Index" value="@item" hidden />
+                                    @Html.TextBoxFor(m => m.QuizQuestionList[item].QuestionText, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.QuizQuestionList[item].QuestionID, new { @class = "form-control", @type = "hidden" })
+                                    @Html.ValidationMessageFor(m => m.QuizQuestionList[item].QuestionText, null, new { @class = "text-danger" })
+                                </div>
                             </div>
                             <div>
                                 <div class="row mb-5">
@@ -112,8 +117,11 @@
                                             <div class="col-6 d-flex align-items-center gap-4 mb-4">
                                                 @Html.TextBoxFor(m => m.QuizQuestionList[item].OptionList[option].IsCorrect, new { @class = "form-control", @type = "hidden" })
                                                 <span class=" fs-4">(@((char)('A' + option)))</span>
-                                                @Html.TextBoxFor(m => m.QuizQuestionList[item].OptionList[option].OptionText, new { @class = "form-control" })
-                                                @Html.TextBoxFor(m => m.QuizQuestionList[item].OptionList[option].OptionID, new { @class = "form-control", @type = "hidden" })
+                                                <div class="w-100">
+                                                    @Html.TextBoxFor(m => m.QuizQuestionList[item].OptionList[option].OptionText, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.QuizQuestionList[item].OptionList[option].OptionText, null, new { @class = "text-danger" })
+                                                    @Html.TextBoxFor(m => m.QuizQuestionList[item].OptionList[option].OptionID, new { @class = "form-control", @type = "hidden" })
+                                                </div>
                                             </div>
                                         }
                                     }
@@ -121,7 +129,8 @@
                                         <select onchange="bindCorrectAnswer(@item, this)">
                                             <option>Select Correct option</option>
                                             @{
-                                                for(int i = 0; i < 4; i++) {
+                                                for (int i = 0; i < 4; i++)
+                                                {
                                                     if (Model.QuizQuestionList[item].OptionList[@i].IsCorrect == true)
                                                     {
                                                         <option value=@i selected>@((char)('A' + i))</option>
@@ -130,7 +139,8 @@
                                                     {
                                                         <option value=@i>@((char)('A' + i))</option>
                                                     }
-                                                }                                                
+                                                    @Html.ValidationMessageFor(m => m.QuizQuestionList[item].OptionList[@i].IsCorrect, null, new { @class = "text-danger" })
+                                                }
                                             }
                                         </select>
                                     </div>
@@ -146,12 +156,12 @@
                 if (Model != null)
                 {
                     <button type="submit" class="btn btn-success" id="createQuizBtn">Save</button>
-                    @Html.ActionLink("Cancel", "GetAllQuiz","Admin", null, new {@class="btn btn-secondary"})
                 }
                 else
                 {
                     <button type="submit" class="btn btn-success" id="createQuizBtn" disabled>Create</button>
                 }
+                @Html.ActionLink("Cancel", "GetAllQuiz", "Admin", null, new { @class = "btn btn-secondary" })
             }
         </div>
     }

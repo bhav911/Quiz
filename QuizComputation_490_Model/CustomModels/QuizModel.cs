@@ -9,16 +9,15 @@ namespace QuizComputation_490_Model.CustomModels
 {
     public class QuizModel
     {
-        public int QuizID { get; set; }
+        public Nullable<int> QuizID { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Please fill Title field")]
         [MaxLength(length:100, ErrorMessage ="Title too long")]
         public string QuizTitle { get; set; }
 
         public int FirstQuestionID { get; set; }
 
-        [Required]
-        [MaxLength(length:250, ErrorMessage ="Description too long")]
+        [Required(ErrorMessage = "Please fill Description field")]
         public string QuizDescription { get; set; }
         public List<QuestionModel> QuizQuestionList { get; set; }
         public bool isCompleted { get; set; }

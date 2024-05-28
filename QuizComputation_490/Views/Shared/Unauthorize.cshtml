@@ -3,5 +3,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Unauthorized Access</h2>
-
+<div class="w-100 d-flex justify-content-center">
+    <div>
+        <img src="https://cdn-icons-png.flaticon.com/512/4925/4925635.png" />
+    </div>
+</div>
+<h2 class="text-center mt-3 fw-bold text-danger" style="font-size:60px;">Unauthorized Access</h2>
+<div class="d-flex justify-content-center mt-4">
+    @{
+        if (ViewBag.role == "user")
+        {
+            @Html.ActionLink("Back to Home", "GetAllQuizes", "User", null, new { @class = "btn btn-secondary" })
+        }
+        else
+        {
+            @Html.ActionLink("Back to Home", "GetAllQuiz", "Admin", null, new { @class = "btn btn-secondary" })
+        }
+    }
+</div>

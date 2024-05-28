@@ -12,11 +12,11 @@ namespace QuizComputation_490_Model.CustomModels
         public int OptionID { get; set; }
         public int QuestionID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please fill option field")]
         [MaxLength(length: 60, ErrorMessage = "Option too long")]
         public string OptionText { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Select atleast 1 option")]
         public bool IsCorrect { get; set; }
     }
 }

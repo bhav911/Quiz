@@ -25,18 +25,18 @@
             @Html.LabelFor(m => m.Login_email, "Email Address")
             @Html.ValidationMessageFor(m => m.Login_email, null, new { @class="text-danger" })
         </div>
-        <div class="d-flex align-items-center border rounded-3 mb-3">
+        <div class="d-flex align-items-center border rounded-3">
             <div class="form-floating w-100">
                 @Html.TextBoxFor(m => m.Login_password, new { @class = "form-control border border-0 toggle-password", @placeholder = "", @type = "password" })
                 @Html.LabelFor(m => m.Login_password, "Password")
-                @Html.ValidationMessageFor(m => m.Login_password, null, new { @class = "text-danger" })
             </div>
             <div>
                 <button type="button" class="btn"><i class="fa-solid fa-eye" onclick="togglePassword()" ></i></button>
             </div>
         </div>
+                @Html.ValidationMessageFor(m => m.Login_password, null, new { @class = "text-danger" })
 
-        <div class="d-flex justify-content-center mb-3 ">
+        <div class="d-flex justify-content-center my-3 ">
             <button type="submit" class="btn btn-success">SignIn</button>
         </div>
     </form>

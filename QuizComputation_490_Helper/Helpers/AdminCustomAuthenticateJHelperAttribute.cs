@@ -21,7 +21,8 @@ namespace QuizComputation_490_Helper.Helpers
             filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
                 {
                     {"controller","User"},
-                    {"action", "Unauthorize"}
+                    {"action", "Unauthorize"},
+                    {"role", "user"}
                 }
             );
         }

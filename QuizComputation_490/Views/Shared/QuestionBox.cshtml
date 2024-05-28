@@ -16,7 +16,6 @@
         RegisterAnswer(question, ans, this);
     });
     $('#Submit-Quiz').on('click', function () {
-        debugger
         let question = @Model.QuestionID;
         if (UserAnswer[question] != null)
             SubmitQuiz(@Model.QuizID);
@@ -27,10 +26,13 @@
     });
 
     $('.next-button').on('click', function () {
-        debugger
         let question = @Model.QuestionID;
         if (UserAnswer[question] != null)
             GetQuestion(@(Model.QuestionID + 1))
+        else {
+            toastr.warning("Please select an option")
+
+        }
     });
 
 

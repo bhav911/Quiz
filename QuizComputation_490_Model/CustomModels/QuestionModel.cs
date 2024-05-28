@@ -12,7 +12,7 @@ namespace QuizComputation_490_Model.CustomModels
         public int QuestionID { get; set; }
         public int QuizID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please fill Question field")]
         [MaxLength(length: 200, ErrorMessage ="Question too long")]
         public string QuestionText { get; set; }
 

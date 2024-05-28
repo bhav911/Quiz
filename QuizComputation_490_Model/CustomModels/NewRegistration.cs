@@ -12,13 +12,13 @@ namespace QuizComputation_490_Model.CustomModels
         public string Userrole { get; set; }
         public int UserID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Can't Leave Field Empty")]
         [RegularExpression("^[A-Za-z0-9_ ]*$", ErrorMessage = "Only alphanumeric and '-' are allowed")]
         [MaxLength(length: 20, ErrorMessage = "Length must be less than 20 characters")]
         [MinLength(length: 8, ErrorMessage = "Length must be greater than 8 characters")]
         public string Username { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Can't Leave Field Empty")]
         [MaxLength(length: 20, ErrorMessage = "Length must be less than 20 characters")]
         [MinLength(length: 8, ErrorMessage = "Length must be greater than 8 characters")]
         public string Password { get; set; }
@@ -26,7 +26,7 @@ namespace QuizComputation_490_Model.CustomModels
         [Compare("Password", ErrorMessage = "Password does not match")]
         public string Confirm_password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Can't Leave Field Empty")]
         [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Invalid email format")]
         public string Email { get; set; }
     }

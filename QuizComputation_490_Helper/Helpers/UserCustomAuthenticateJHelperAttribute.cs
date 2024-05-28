@@ -21,7 +21,8 @@ namespace QuizComputation_490_Helper.Helpers
                 new System.Web.Routing.RouteValueDictionary()
                 {
                     {"controller","Admin" },
-                    {"action","Unauthorize" }
+                    {"action","Unauthorize" },
+                    {"role", "admin"}
                 }
             );
         }

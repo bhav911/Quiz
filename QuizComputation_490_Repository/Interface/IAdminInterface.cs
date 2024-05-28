@@ -17,6 +17,6 @@ namespace QuizComputation_490_Repository.Interface
         bool UpdateQuiz(QuizModel updatedQuiz, int adminID);
         bool DeleteQuiz(int adminID);
         Admins GetProfile(int adminID);
-        void updateProfile(NewRegistration updatedInfo, int userID);
+        bool updateProfile(NewRegistration updatedInfo, int userID);
     }
 }
