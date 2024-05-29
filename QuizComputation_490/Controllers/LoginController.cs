@@ -16,15 +16,15 @@ namespace QuizComputation_490.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly IAdminInterface _admin;
-        private readonly IUserInterface _user;
+        //private readonly IAdminInterface _admin;
+        //private readonly IUserInterface _user;
 
 
-        public LoginController(IAdminInterface admin, IUserInterface user)
-        {
-            _admin = admin;
-            _user = user;
-        }
+        //public LoginController(IAdminInterface admin, IUserInterface user)
+        //{
+        //    _admin = admin;
+        //    _user = user;
+        //}
         public ActionResult SignIn()
         {
             Session.Clear();
@@ -43,7 +43,7 @@ namespace QuizComputation_490.Controllers
                     NewRegistration admin = JsonConvert.DeserializeObject<NewRegistration>(response);
                     if (admin != null)
                     {
-                        ViewBag.success = "Successfully Logged In";
+                        TempData["success"] = "Successfully Logged In";
                         TempData["Role"] = "Admin";
                         UserSession.UserID = admin.UserID;
                         UserSession.Username = admin.Username;
@@ -57,7 +57,7 @@ namespace QuizComputation_490.Controllers
                     NewRegistration user = JsonConvert.DeserializeObject<NewRegistration>(response);
                     if (user != null)
                     {
-                        ViewBag.success = "Successfully Logged In";
+                        TempData["success"] = "Successfully Logged In";
                         TempData["Role"] = "User";
                         UserSession.UserID = user.UserID;
                         UserSession.Username = user.Username;
@@ -65,7 +65,7 @@ namespace QuizComputation_490.Controllers
                         return RedirectToAction("GetAllQuizes", "User");
                     }
                 }
-                ViewBag.error = "Invalid Credentials";
+                TempData["error"] = "Invalid Credentials";
             }
 
             return View(credential);
@@ -82,18 +82,35 @@ namespace QuizComputation_490.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (Request.Files.Count > 0)
+                {
+                    HttpPostedFileBase file = Request.Files[0];
+                    string a = ConvertToStringPhoto(file);
+                    newUser.profile = a;
+                }
                 string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponsePost("api/LoginAPI/SignUp", JsonConvert.SerializeObject(newUser));
-                ViewBag.success = "User registered Successfully";
+                TempData["success"] = "User registered Successfully";
                 return RedirectToAction("SignIn");
             }
-            ViewBag.error = "Form contains invalid fields";
+            TempData["error"] = "Form contains invalid fields";
             return View(newUser);
+        }
+
+        [NonAction]
+        public string ConvertToStringPhoto(HttpPostedFileBase file)
+        {
+            if (file.ContentLength <= 0)
+                return null;
+            var images = new Byte[file.ContentLength - 1];
+            file.InputStream.Read(images, 0, images.Length);
+            var base64String = Convert.ToBase64String(images, 0, images.Length);
+            return base64String;
         }
 
         public ActionResult SignOut()
         {
             Session.Clear();
-            ViewBag.success = "Successfully Logged Out";
+            TempData["success"] = "Successfully Logged Out";
             return RedirectToAction("SignIn");
         }
 

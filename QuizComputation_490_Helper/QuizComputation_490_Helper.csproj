@@ -75,7 +75,9 @@
   <ItemGroup>
     <Compile Include="Helpers\AdminCustomAuthenticateJHelperAttribute.cs" />
     <Compile Include="Helpers\CustomAuthorizeHelperAttribute.cs" />
+    <Compile Include="Helpers\IsQuizActiveHelperAttribute.cs" />
     <Compile Include="Helpers\ModelConverter.cs" />
+    <Compile Include="Helpers\SqlSPHelper.cs" />
     <Compile Include="Helpers\UserCustomAuthenticateJHelperAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

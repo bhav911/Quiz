@@ -19,6 +19,7 @@ namespace QuizComputation_490_Model.Context
         {
             this.Results = new HashSet<Results>();
             this.UserAnswers = new HashSet<UserAnswers>();
+            this.UserProfile = new HashSet<UserProfile>();
         }
     
         public int userID { get; set; }
@@ -32,5 +33,7 @@ namespace QuizComputation_490_Model.Context
         public virtual ICollection<Results> Results { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserAnswers> UserAnswers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserProfile> UserProfile { get; set; }
     }
 }

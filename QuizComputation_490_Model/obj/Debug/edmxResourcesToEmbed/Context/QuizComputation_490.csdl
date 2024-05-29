@@ -92,6 +92,7 @@
     <Property Name="updatedAt" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Results" Relationship="Self.fk_userID_Results" FromRole="Users" ToRole="Results" />
     <NavigationProperty Name="UserAnswers" Relationship="Self.fk_userID_UserAnswers" FromRole="Users" ToRole="UserAnswers" />
+    <NavigationProperty Name="UserProfile" Relationship="QuizComputation_490Model.fk_userID_userProfie" FromRole="Users" ToRole="UserProfile" />
   </EntityType>
   <Association Name="fk_createdBy_quiz">
     <End Role="Admins" Type="Self.Admins" Multiplicity="0..1" />
@@ -245,5 +246,31 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="UserAnswers" EntitySet="UserAnswers" />
     </AssociationSet>
+    <EntitySet Name="UserProfile" EntityType="QuizComputation_490Model.UserProfile" />
+    <AssociationSet Name="fk_userID_userProfie" Association="QuizComputation_490Model.fk_userID_userProfie">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserProfile" EntitySet="UserProfile" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="UserProfile">
+    <Key>
+      <PropertyRef Name="profileID" />
+    </Key>
+    <Property Name="profileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="Int32" />
+    <Property Name="profileContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Users" Relationship="QuizComputation_490Model.fk_userID_userProfie" FromRole="UserProfile" ToRole="Users" />
+  </EntityType>
+  <Association Name="fk_userID_userProfie">
+    <End Type="QuizComputation_490Model.Users" Role="Users" Multiplicity="0..1" />
+    <End Type="QuizComputation_490Model.UserProfile" Role="UserProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="UserProfile">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

@@ -5,7 +5,20 @@
 }
 
 <div>
-    <form method="post" id="signup">
+    <form method="post" id="signup" enctype="multipart/form-data">
+        <div class="d-flex justify-content-center mb-5">
+            <input name="profile" type="file" id="edit-image" class="d-none" />
+            @{
+                if (Model.profile == null)
+                {
+                    <label for="edit-image" id="image-holder" class="rounded-circle border border-black img-fluid" style="background-repeat: no-repeat; cursor: pointer; background-image: url(https://freesvg.org/img/abstract-user-flat-4.png); height: 150px; width: 150px; background-size:cover"></label>
+                }
+                else
+                {
+                    <label for="edit-image" id="image-holder" class="rounded-circle border border-black img-fluid" style="background-repeat: no-repeat; cursor: pointer; background-image: url('data:image;base64,@Model.profile'); height: 150px; width: 150px; background-size:cover"></label>
+                }
+            }
+        </div>
         <div class="form-floating mb-3">
             @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @placeholder = "" })
             @Html.LabelFor(m => m.Username, "Username")
@@ -28,3 +41,22 @@
         </div>
     </form>
 </div>
+
+<script>
+    function displayImage(event) {
+        debugger
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                let element = $('#image-holder');
+                element.css("background-image", `url(${e.target.result})`);
+            }
+
+            reader.readAsDataURL(file)
+        }
+    }
+
+    document.getElementById('edit-image').addEventListener('change', displayImage);
+</script>

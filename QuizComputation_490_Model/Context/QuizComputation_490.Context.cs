@@ -32,5 +32,6 @@ namespace QuizComputation_490_Model.Context
         public virtual DbSet<Results> Results { get; set; }
         public virtual DbSet<UserAnswers> UserAnswers { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<UserProfile> UserProfile { get; set; }
     }
 }

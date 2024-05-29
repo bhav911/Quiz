@@ -24,6 +24,7 @@ namespace QuizComputation_490_WebAPI.Controllers
         {
             Users user = _user.GetProfile(userID);
             NewRegistration result = ModelConverter.ConvertUserToNewUser(user);
+            result.profile = _user.GetProfileImage(userID);
             return result;
         }
         
@@ -66,6 +67,7 @@ namespace QuizComputation_490_WebAPI.Controllers
         {
             Users user = _user.GetProfile(userID);
             NewRegistration result = ModelConverter.ConvertUserToNewUser(user);
+            result.profile = user.UserProfile.FirstOrDefault().profileContent;
             return result;
         }
 

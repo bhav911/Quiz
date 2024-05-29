@@ -4,6 +4,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="d-flex flex-column gap-4">
+    <div class="d-flex justify-content-center">
+        @{
+            if (Model.profile == null)
+            {
+                <img  class="rounded-circle border border-black img-fluid" style="height: 150px; width: 150px; background-image: url(https://freesvg.org/img/abstract-user-flat-4.png); background-size:cover" />
+            }
+            else
+            {
+                <img class="rounded-circle border border-black img-fluid" style="height: 150px; width: 150px; background-image: url('data:image;base64,@Model.profile'); background-size: cover" />
+            }
+        }
+    </div>
     <div class="border p-5">
         <div>
             <p>Userame: <span class="fw-bold">@Model.Username</span></p>

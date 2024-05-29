@@ -2,9 +2,43 @@
 
 @{ Layout = "~/Views/Shared/_LoginLayout.cshtml"; }
 
+<style>
+    .file-upload-wrapper {
+        position: relative;
+    }
+
+    .file-upload {
+        display: none;
+    }
+
+    .file-upload-label {
+        background-image: url(https://freesvg.org/img/abstract-user-flat-4.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        display: block;
+        color: white;
+        text-align: center;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 150px;
+        height: 150px
+    }
+
+    .file-upload-name {
+        margin-top: 10px;
+        font-style: italic;
+    }
+</style>
+
+
 
 <div>
-    <form method="post" id="signup">
+    <form method="post" id="signup" enctype = "multipart/form-data">
+        <div class="file-upload-wrapper d-flex justify-content-center mb-5">
+            @Html.TextBoxFor(m => m.profile, null, new { @class= "file-upload", @type="file", @id = "file-upload" })
+            <label for="file-upload" class="file-upload-label rounded-circle border border-black border-2" id="image-holder"></label>
+            <div id="file-upload-name" class="file-upload-name"></div>
+        </div>
         <div class="form-floating mb-3">
             @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @placeholder = "" })
             @Html.LabelFor(m => m.Username, "Username")
@@ -29,7 +63,7 @@
                 <button type="button" class="btn"><i class="fa-solid fa-eye" onclick="togglePassword()"></i></button>
             </div>
         </div>
-                @Html.ValidationMessageFor(m => m.Confirm_password, null, new { @class = "text-danger" })
+        @Html.ValidationMessageFor(m => m.Confirm_password, null, new { @class = "text-danger" })
 
         <div class="d-flex justify-content-center my-3 ">
             <button type="submit" class="btn btn-success">SignUp</button>
@@ -41,3 +75,28 @@
         @Html.ActionLink("Sign In", "SignIn", "Login", null, new { @class = "text-success text-decoration-none" })
     </div>
 </div>
+
+
+<script>
+
+    function displayImage(event) {
+        debugger
+        const file = event.target.files[0];
+
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            debugger
+            reader.onload = function (e) {
+                debugger
+                const imageContainer = document.getElementById('image-holder');
+                $(imageContainer).css("background-image", `url(${e.target.result})`);
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            alert('Please select a valid image file.');
+        }
+    }
+
+    document.getElementById('file-upload').addEventListener('change', displayImage);
+</script>

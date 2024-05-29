@@ -29,5 +29,6 @@ namespace QuizComputation_490_Model.CustomModels
         [Required(ErrorMessage = "Can't Leave Field Empty")]
         [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Invalid email format")]
         public string Email { get; set; }
+        public string profile { get; set; }
     }
 }

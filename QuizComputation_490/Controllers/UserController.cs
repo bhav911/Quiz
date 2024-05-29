@@ -19,14 +19,14 @@ namespace QuizComputation_490.Controllers
     [UserCustomAuthenticateHelper]
     public class UserController : Controller
     {
-        private readonly IUserInterface _user;
-        private readonly IQuizInterface _quiz;
+        //private readonly IUserInterface _user;
+        //private readonly IQuizInterface _quiz;
 
-        public UserController(IUserInterface user, IQuizInterface quiz)
-        {
-            _user = user;
-            _quiz = quiz;
-        }
+        //public UserController(IUserInterface user, IQuizInterface quiz)
+        //{
+        //    _user = user;
+        //    _quiz = quiz;
+        //}
 
         public async Task<ActionResult> EditProfile()
         {
@@ -35,22 +35,40 @@ namespace QuizComputation_490.Controllers
             return View(result);
         }
 
-        [System.Web.Mvc.HttpPost]
+        [System.Web.Http.NonAction]
+        public string ConvertToStringPhoto(HttpPostedFileBase file)
+        {
+            if (file.ContentLength <= 0)
+                return null;
+            var images = new Byte[file.ContentLength - 1];
+            file.InputStream.Read(images, 0, images.Length);
+            var base64String = Convert.ToBase64String(images, 0, images.Length);
+            return base64String;
+        }
+
+        [System.Web.Mvc.HttpPost]   
         public async Task<ActionResult> EditProfile(NewRegistration updatedInfo)
         {
+            if (Request.Files.Count > 0)
+            {
+                HttpPostedFileBase file = Request.Files[0];
+                string a = ConvertToStringPhoto(file);
+                updatedInfo.profile = a;
+            }
             string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponsePost($"api/UserAPI/EditProfile?userID={UserSession.UserID}", JsonConvert.SerializeObject(updatedInfo));
-            _user.updateProfile(updatedInfo, UserSession.UserID);
-            ViewBag.success = "Updated Profile Successfully";
+            TempData["success"] = "Updated Profile Successfully";
             return RedirectToAction("ShowProfile");
         }
 
         public async Task<ActionResult> GetAllQuizes()
         {
+            UserSession.isQuizActive = false;
             string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponseGet("api/UserAPI/GetAllQuizes?userID=" + UserSession.UserID);
             List<QuizModel> quizModelsList = JsonConvert.DeserializeObject<List<QuizModel>>(response);
             return View(quizModelsList);
         }
 
+        [IsQuizActiveHelper]
         public async Task<PartialViewResult> GetQuestion(int questionID)
         {
             string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponseGet("api/UserAPI/GetQuestion?questionID=" + questionID);
@@ -64,6 +82,7 @@ namespace QuizComputation_490.Controllers
         {
             string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponseGet($"api/UserAPI/StartQuiz?quizID={quizID}&userID={UserSession.UserID}");
             QuizModel quizModel = JsonConvert.DeserializeObject<QuizModel>(response);
+            UserSession.isQuizActive = true;
             if (quizModel.isCompleted)
             {
                 return RedirectToAction("GetAllQuizes");
@@ -86,6 +105,7 @@ namespace QuizComputation_490.Controllers
             };
             string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponsePost($"api/UserAPI/SaveAnswers?userID={UserSession.UserID}", JsonConvert.SerializeObject(answerModel));
             int score = Convert.ToInt32(response);
+            UserSession.isQuizActive = false;
             ResultModel resultModel = new ResultModel()
             {
                 quizID = quizID,
@@ -94,12 +114,13 @@ namespace QuizComputation_490.Controllers
             };
             //for-scalability of question numbers
             //resultModel.TotalQuestions = _quiz.GetTotalQuestions(quizID);
-            ViewBag.success = "Successfully submited your response";
+            TempData["success"] = "Successfully submited your response";
             return PartialView("ResultBox", resultModel);
         }
 
         public async Task<PartialViewResult> SeeAnswers(int quizID)
         {
+            UserSession.isQuizActive = false;
             string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponseGet($"api/UserAPI/SeeAnswers?quizID={quizID}&userID={UserSession.UserID}");
             List<ResultAnswerModel> resultAnswerModel = JsonConvert.DeserializeObject<List<ResultAnswerModel>>(response);
             return PartialView("ShowAnswers", resultAnswerModel);
@@ -107,6 +128,7 @@ namespace QuizComputation_490.Controllers
 
         public ActionResult GetResult(int quizID)
         {
+            UserSession.isQuizActive = false;
             ViewBag.quizID = quizID;
             return View();
         }

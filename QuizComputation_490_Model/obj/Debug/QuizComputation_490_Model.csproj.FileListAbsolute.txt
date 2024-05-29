@@ -5,7 +5,6 @@ C:\Bhavya_Modhiya\Training_tasks\dotnet training codes\QuizComputation_490\QuizC
 C:\Bhavya_Modhiya\Training_tasks\dotnet training codes\QuizComputation_490\QuizComputation_490\QuizComputation_490_Model\bin\Debug\EntityFramework.SqlServer.dll
 C:\Bhavya_Modhiya\Training_tasks\dotnet training codes\QuizComputation_490\QuizComputation_490\QuizComputation_490_Model\bin\Debug\EntityFramework.xml
 C:\Bhavya_Modhiya\Training_tasks\dotnet training codes\QuizComputation_490\QuizComputation_490\QuizComputation_490_Model\bin\Debug\EntityFramework.SqlServer.xml
-C:\Bhavya_Modhiya\Training_tasks\dotnet training codes\QuizComputation_490\QuizComputation_490\QuizComputation_490_Model\obj\Debug\QuizComputation_490_Model.csproj.AssemblyReference.cache
 C:\Bhavya_Modhiya\Training_tasks\dotnet training codes\QuizComputation_490\QuizComputation_490\QuizComputation_490_Model\obj\Debug\QuizComputation_490_Model.csproj.CoreCompileInputs.cache
 C:\Bhavya_Modhiya\Training_tasks\dotnet training codes\QuizComputation_490\QuizComputation_490\QuizComputation_490_Model\obj\Debug\QuizComputation_490_Model.csproj.CopyComplete
 C:\Bhavya_Modhiya\Training_tasks\dotnet training codes\QuizComputation_490\QuizComputation_490\QuizComputation_490_Model\obj\Debug\QuizComputation_490_Model.dll
@@ -22,3 +21,4 @@ D:\dotnet\Quiz\QuizComputation_490_Model\obj\Debug\QuizComputation_490_Model.csp
 D:\dotnet\Quiz\QuizComputation_490_Model\obj\Debug\QuizComputation_490_Model.dll
 D:\dotnet\Quiz\QuizComputation_490_Model\obj\Debug\QuizComputation_490_Model.pdb
 D:\dotnet\Quiz\QuizComputation_490_Model\obj\Debug\QuizComputation_490_Model.csproj.AssemblyReference.cache
+C:\Bhavya_Modhiya\Training_tasks\dotnet training codes\QuizComputation_490\QuizComputation_490\QuizComputation_490_Model\obj\Debug\QuizComputation_490_Model.csproj.AssemblyReference.cache

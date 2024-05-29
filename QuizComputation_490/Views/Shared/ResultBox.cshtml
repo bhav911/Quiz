@@ -5,6 +5,20 @@
         SeeAnswer(@Model.quizID)
     })
 </script>
+@{
+    if (TempData["success"] != null && TempData["success"] != "")
+    {
+        <script>
+                toastr.success('@TempData["success"]');
+        </script>
+    }
+    if (TempData["error"] != null && TempData["error"] != "")
+    {
+        <script>
+                toastr.error('@TempData["error"]')
+        </script>
+    }
+}
 
 <h2 class="text-center mb-5">Result</h2>
 
@@ -29,6 +43,6 @@
 </div>
 
 <div class="d-flex justify-content-center gap-2 mt-5">
-    <button class="btn btn-info"id="see-answer-btn">See Answers</button>
-    @Html.ActionLink("Back To Home", "GetAllQuizes", "User", null, new { @class="btn btn-secondary" })
+    <button class="btn btn-info" id="see-answer-btn">See Answers</button>
+    @Html.ActionLink("Back To Home", "GetAllQuizes", "User", null, new { @class = "btn btn-secondary" })
 </div>

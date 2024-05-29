@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QuizComputation_490Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QuizComputation_490Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admins">
           <Key>
             <PropertyRef Name="adminID" />
@@ -68,6 +68,14 @@
           <Property Name="questionID" Type="int" />
           <Property Name="selectedOptionID" Type="int" />
           <Property Name="createdAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="profileID" />
+          </Key>
+          <Property Name="profileID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userID" Type="int" />
+          <Property Name="profileContent" Type="text" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -188,6 +196,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_userID_userProfie">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="QuizComputation_490ModelStoreContainer">
           <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Options" EntityType="Self.Options" Schema="dbo" store:Type="Tables" />
@@ -195,6 +215,7 @@
           <EntitySet Name="Quizzes" EntityType="Self.Quizzes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Results" EntityType="Self.Results" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAnswers" EntityType="Self.UserAnswers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="fk_createdBy_quiz" Association="Self.fk_createdBy_quiz">
             <End Role="Admins" EntitySet="Admins" />
@@ -232,9 +253,12 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="UserAnswers" EntitySet="UserAnswers" />
           </AssociationSet>
+          <AssociationSet Name="fk_userID_userProfie" Association="Self.fk_userID_userProfie">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QuizComputation_490Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -330,6 +354,7 @@
           <Property Name="updatedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Results" Relationship="Self.fk_userID_Results" FromRole="Users" ToRole="Results" />
           <NavigationProperty Name="UserAnswers" Relationship="Self.fk_userID_UserAnswers" FromRole="Users" ToRole="UserAnswers" />
+          <NavigationProperty Name="UserProfile" Relationship="QuizComputation_490Model.fk_userID_userProfie" FromRole="Users" ToRole="UserProfile" />
         </EntityType>
         <Association Name="fk_createdBy_quiz">
           <End Role="Admins" Type="Self.Admins" Multiplicity="0..1" />
@@ -483,7 +508,33 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="UserAnswers" EntitySet="UserAnswers" />
           </AssociationSet>
+          <EntitySet Name="UserProfile" EntityType="QuizComputation_490Model.UserProfile" />
+          <AssociationSet Name="fk_userID_userProfie" Association="QuizComputation_490Model.fk_userID_userProfie">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="profileID" />
+          </Key>
+          <Property Name="profileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="Int32" />
+          <Property Name="profileContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Users" Relationship="QuizComputation_490Model.fk_userID_userProfie" FromRole="UserProfile" ToRole="Users" />
+        </EntityType>
+        <Association Name="fk_userID_userProfie">
+          <End Type="QuizComputation_490Model.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="QuizComputation_490Model.UserProfile" Role="UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -569,6 +620,15 @@
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="createdAt" ColumnName="createdAt" />
                 <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfile">
+            <EntityTypeMapping TypeName="QuizComputation_490Model.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="profileContent" ColumnName="profileContent" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="profileID" ColumnName="profileID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

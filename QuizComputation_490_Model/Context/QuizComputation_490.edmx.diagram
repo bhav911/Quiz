@@ -22,6 +22,8 @@
         <AssociationConnector Association="QuizComputation_490Model.fk_userID_Results" ManuallyRouted="false" >
         </AssociationConnector>
         <AssociationConnector Association="QuizComputation_490Model.fk_userID_UserAnswers" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="QuizComputation_490Model.UserProfile" Width="1.5" PointX="4.25" PointY="8.125" />
+        <AssociationConnector Association="QuizComputation_490Model.fk_userID_userProfie" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

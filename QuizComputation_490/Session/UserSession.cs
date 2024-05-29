@@ -42,5 +42,17 @@ namespace QuizComputation_490.Session
                 HttpContext.Current.Session["UserRole"] = value;
             }
         }
+
+        public static bool isQuizActive
+        {
+            get
+            {
+                return (bool)HttpContext.Current.Session["isQuizActive"];
+            }
+            set
+            {
+                HttpContext.Current.Session["isQuizActive"] = value;
+            }
+        }
     }
 }

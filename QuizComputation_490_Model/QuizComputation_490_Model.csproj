@@ -86,6 +86,9 @@
     <Compile Include="Context\UserAnswers.cs">
       <DependentUpon>QuizComputation_490.tt</DependentUpon>
     </Compile>
+    <Compile Include="Context\UserProfile.cs">
+      <DependentUpon>QuizComputation_490.tt</DependentUpon>
+    </Compile>
     <Compile Include="Context\Users.cs">
       <DependentUpon>QuizComputation_490.tt</DependentUpon>
     </Compile>

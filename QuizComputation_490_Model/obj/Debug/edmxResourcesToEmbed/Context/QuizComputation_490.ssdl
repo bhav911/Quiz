@@ -64,6 +64,14 @@
     <Property Name="selectedOptionID" Type="int" />
     <Property Name="createdAt" Type="datetime" />
   </EntityType>
+  <EntityType Name="UserProfile">
+    <Key>
+      <PropertyRef Name="profileID" />
+    </Key>
+    <Property Name="profileID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userID" Type="int" />
+    <Property Name="profileContent" Type="text" />
+  </EntityType>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="userID" />
@@ -183,6 +191,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="fk_userID_userProfie">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="UserProfile">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="QuizComputation_490ModelStoreContainer">
     <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Options" EntityType="Self.Options" Schema="dbo" store:Type="Tables" />
@@ -190,6 +210,7 @@
     <EntitySet Name="Quizzes" EntityType="Self.Quizzes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Results" EntityType="Self.Results" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserAnswers" EntityType="Self.UserAnswers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="fk_createdBy_quiz" Association="Self.fk_createdBy_quiz">
       <End Role="Admins" EntitySet="Admins" />
@@ -226,6 +247,10 @@
     <AssociationSet Name="fk_userID_UserAnswers" Association="Self.fk_userID_UserAnswers">
       <End Role="Users" EntitySet="Users" />
       <End Role="UserAnswers" EntitySet="UserAnswers" />
+    </AssociationSet>
+    <AssociationSet Name="fk_userID_userProfie" Association="Self.fk_userID_userProfie">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserProfile" EntitySet="UserProfile" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

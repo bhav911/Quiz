@@ -193,3 +193,20 @@ C:\Bhavya_Modhiya\Training_tasks\dotnet training codes\QuizComputation_490\QuizC
 C:\Bhavya_Modhiya\Training_tasks\dotnet training codes\QuizComputation_490\QuizComputation_490\QuizComputation_490_WebAPI\bin\System.Runtime.CompilerServices.Unsafe.xml
 C:\Bhavya_Modhiya\Training_tasks\dotnet training codes\QuizComputation_490\QuizComputation_490\QuizComputation_490_WebAPI\bin\Unity.Abstractions.pdb
 C:\Bhavya_Modhiya\Training_tasks\dotnet training codes\QuizComputation_490\QuizComputation_490\QuizComputation_490_WebAPI\bin\Unity.Container.pdb
+D:\dotnet\Quiz\QuizComputation_490_WebAPI\bin\QuizComputation_490_Helper.dll
+D:\dotnet\Quiz\QuizComputation_490_WebAPI\bin\QuizComputation_490_Model.dll
+D:\dotnet\Quiz\QuizComputation_490_WebAPI\bin\QuizComputation_490_Repository.dll
+D:\dotnet\Quiz\QuizComputation_490_WebAPI\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\dotnet\Quiz\QuizComputation_490_WebAPI\bin\Unity.Abstractions.dll
+D:\dotnet\Quiz\QuizComputation_490_WebAPI\bin\Unity.Container.dll
+D:\dotnet\Quiz\QuizComputation_490_WebAPI\bin\Unity.Mvc5.dll
+D:\dotnet\Quiz\QuizComputation_490_WebAPI\bin\System.Threading.Tasks.Extensions.dll
+D:\dotnet\Quiz\QuizComputation_490_WebAPI\bin\QuizComputation_490_Helper.pdb
+D:\dotnet\Quiz\QuizComputation_490_WebAPI\bin\QuizComputation_490_Helper.dll.config
+D:\dotnet\Quiz\QuizComputation_490_WebAPI\bin\QuizComputation_490_Model.pdb
+D:\dotnet\Quiz\QuizComputation_490_WebAPI\bin\QuizComputation_490_Model.dll.config
+D:\dotnet\Quiz\QuizComputation_490_WebAPI\bin\QuizComputation_490_Repository.pdb
+D:\dotnet\Quiz\QuizComputation_490_WebAPI\bin\QuizComputation_490_Repository.dll.config
+D:\dotnet\Quiz\QuizComputation_490_WebAPI\bin\System.Runtime.CompilerServices.Unsafe.xml
+D:\dotnet\Quiz\QuizComputation_490_WebAPI\bin\Unity.Abstractions.pdb
+D:\dotnet\Quiz\QuizComputation_490_WebAPI\bin\Unity.Container.pdb

@@ -10,7 +10,7 @@ namespace QuizComputation_490_Repository.Interface
 {
     public interface IUserInterface
     {
-        bool RegisterUser(Users newUser);
+        bool RegisterUser(Users newUser, string profileData);
         Users AuthenticateUser(LoginModel credentials);
         Users GetProfile(int userID);
         bool updateProfile(NewRegistration updatedInfo, int userID);

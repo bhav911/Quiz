@@ -1,4 +1,5 @@
-﻿using QuizComputation_490_Model.Context;
+﻿using QuizComputation_490.Common;
+using QuizComputation_490_Model.Context;
 using QuizComputation_490_Model.CustomModels;
 using QuizComputation_490_Repository.Interface;
 using System;
@@ -91,54 +92,39 @@ namespace QuizComputation_490_Repository.Services
         {
             try
             {
-                SqlConnection con = new SqlConnection("Data Source=182.70.118.201,1580;Initial Catalog=QuizComputation_490;user id=sa;password=sit@123;");
-                con.Open();
-
-
+                DataTable resultTable;
+                Dictionary<string, object> kvp;
                 for (int it = 0; it < 5; it++)
                 {
-                    using (SqlCommand cmd = new SqlCommand("SubmitUserAnswer", con))
+                    kvp = new Dictionary<string, object>()
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-
-                        cmd.Parameters.Clear();
-                        cmd.Parameters.AddWithValue("@quizID", answerModel.quizID);
-                        cmd.Parameters.AddWithValue("@userID", userID);
-                        cmd.Parameters.AddWithValue("@questionID", answerModel.Questions[it]);
-                        cmd.Parameters.AddWithValue("@optionOffset", answerModel.Answers[it]);
-
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            { }
-                        }
-                    }
+                        { "@quizID", answerModel.quizID},
+                        {"@userID", userID },
+                        { "@questionID", answerModel.Questions[it]},
+                        {"@optionOffset", answerModel.Answers[it]}
+                    };
+                    resultTable = SqlSPHelper.SqlSPConnector("SubmitUserAnswer", kvp);
                 }
 
                 int score = 0;
-
-                using (SqlCommand cmd = new SqlCommand("InsertUserScore", con))
+                kvp = new Dictionary<string, object>()
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    { "@quizID", answerModel.quizID},
+                    {"@userID", userID }
+                };
 
-                    cmd.Parameters.AddWithValue("@quizID", answerModel.quizID);
-                    cmd.Parameters.AddWithValue("@userID", userID);
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                resultTable = SqlSPHelper.SqlSPConnector("InsertUserScore", kvp);
+                foreach (DataRow row in resultTable.Rows)
+                {
+                    foreach (DataColumn column in resultTable.Columns)
                     {
-                        while (reader.Read())
-                        {
-                            score = (int)reader["score"];
-                        }
+                        score = (int)row[column];
                     }
                 }
-
-                con.Close();
                 return score;
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
@@ -157,44 +143,36 @@ namespace QuizComputation_490_Repository.Services
             }
         }
 
-        public List<ResultAnswerModel> GetUserResult(int quizID,  int userID)
+        public List<ResultAnswerModel> GetUserResult(int quizID, int userID)
         {
             try
             {
                 List<ResultAnswerModel> resultAnswerModelList = new List<ResultAnswerModel>();
 
-                SqlConnection con = new SqlConnection("Data Source=182.70.118.201,1580;Initial Catalog=QuizComputation_490;user id=sa;password=sit@123;");
-                con.Open();
-
-                using (SqlCommand cmd = new SqlCommand("GetUserResult", con))
+                Dictionary<string, object> kvp = new Dictionary<string, object>()
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@quizID", quizID);
-                    cmd.Parameters.AddWithValue("@userID", userID);
+                    { "@quizID", quizID },
+                    { "@userID", userID }
+                };
+                DataTable resultTable = SqlSPHelper.SqlSPConnector("GetUserResult", kvp);
 
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                foreach(DataRow row in resultTable.Rows)
+                {
+                    ResultAnswerModel resultAnswerModel = new ResultAnswerModel()
                     {
-                        while (reader.Read())
-                        {
-                            ResultAnswerModel resultAnswerModel = new ResultAnswerModel()
-                            {
-                                correctOption = ((int)reader["Correct Option"] - 1) % 4,
-                                UserSelectedOption = ((int)reader["User Selected Option"] - 1) % 4,
-                                optionsText = new List<string>()
-                            };
-                            int questionID = (int)reader["questionID"];
-                            Questions question = db.Questions.Where(q => q.questionID == questionID).FirstOrDefault();
-                            resultAnswerModel.questionText = question.questionText;
-                            foreach (Options option in question.Options)
-                            {
-                                resultAnswerModel.optionsText.Add(option.optionText);
-                            }
-                            resultAnswerModelList.Add(resultAnswerModel);
-                        }
+                        correctOption = ((int)row["Correct Option"] - 1) % 4,
+                        UserSelectedOption = ((int)row["User Selected Option"] - 1) % 4,
+                        optionsText = new List<string>()
+                    };
+                    int questionID = (int)row["questionID"];
+                    Questions question = db.Questions.Where(q => q.questionID == questionID).FirstOrDefault();
+                    resultAnswerModel.questionText = question.questionText;
+                    foreach (Options option in question.Options)
+                    {
+                        resultAnswerModel.optionsText.Add(option.optionText);
                     }
+                    resultAnswerModelList.Add(resultAnswerModel);
                 }
-
-                con.Close();
                 return resultAnswerModelList;
             }
             catch (Exception ex)

@@ -44,7 +44,8 @@ namespace QuizComputation_490_WebAPI.Controllers
         public bool SignUp(NewRegistration newUser)
         {
             Users user = ModelConverter.ConvertNewUserToUser(newUser);
-            bool status = _user.RegisterUser(user);
+            string profileData = newUser.profile;
+            bool status = _user.RegisterUser(user, profileData);
             return status;
         }
     }
