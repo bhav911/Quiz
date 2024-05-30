@@ -5,49 +5,76 @@
 }
 
 <table class="table table-bordered">
-    <tr>
-        <th class="text-nowrap">
-            Sr No.
-        </th>
-        <th>
-            Quiz
-        </th>
-        <th>
-            Description
-        </th>
-        <th>
-            Action
-        </th>
-    </tr>
-
-    @{ int counter = 1;}
-    @foreach (var item in Model)
-    {
         <tr>
-            <td>
-                @(counter++)
-            </td>
-            <td>
-                @item.QuizTitle
-            </td>
-            <td>
-                @item.QuizDescription
-            </td>
-            @{
-                if (item.isCompleted)
-                {
-                    <td>
-                        @Html.ActionLink("Results", "GetResult", "User", new { @quizID = item.QuizID }, new { @class = "btn btn-success" })
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        @Html.ActionLink("Start", "StartQuiz", "User", new { @quizID = item.QuizID }, new { @class = "btn btn-primary" })
-                    </td>
-                }
-            }
+            <th class="text-nowrap">
+                Sr No.
+            </th>
+            <th>
+                Quiz
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Action
+            </th>
         </tr>
-    }
 
-</table>
+        @{ int counter = 1;}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(counter++)
+                </td>
+                <td>
+                    @item.QuizTitle
+                </td>
+                <td>
+                    @item.QuizDescription
+                </td>
+                @{
+                    if (item.isCompleted)
+                    {
+                        <td>
+                            @Html.ActionLink("Results", "GetResult", "User", new { @quizID = item.QuizID }, new { @class = "btn btn-success" })
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.ActionLink("Start", "StartQuiz", "User", new { @quizID = item.QuizID }, new { @class = "btn btn-primary" })
+                        </td>
+                    }
+                }
+            </tr>
+        }
+
+    </table>
+
+@*<div class="row">
+    @foreach (var quiz in Model)
+    {
+        <div class="col-6">
+
+            <div class="card mb-5 px-0 ">
+                <h5 class="card-header bg-info-subtle">@quiz.QuizTitle</h5>
+                <div class="card-body">
+                    <h5 class="card-title fw-normal">@quiz.QuizDescription</h5>
+                    <div class="text-end">
+                        @{
+                            if (quiz.isCompleted)
+                            {
+                                @Html.ActionLink("Results", "GetResult", "User", new { @quizID = quiz.QuizID }, new { @class = "btn btn-success" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Start", "StartQuiz", "User", new { @quizID = quiz.QuizID }, new { @class = "btn btn-primary" })
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>*@

@@ -70,7 +70,7 @@ namespace QuizComputation_490_Repository.Services
                 user.password = updatedInfo.Password;
                 user.email = updatedInfo.Email;
                 user.updatedAt = System.DateTime.Now;
-                if (updatedInfo.profile != null)
+                if (updatedInfo.profile != null || updatedInfo.delete_profile)
                     user.UserProfile.FirstOrDefault(u => u.userID == userID).profileContent = updatedInfo.profile;
                 if (updatedInfo.aadharCard != null || updatedInfo.delete_aadhar_card)
                     user.UserProfile.FirstOrDefault(u => u.userID == userID).aadharCard = updatedInfo.aadharCard;

@@ -6,77 +6,95 @@
 
 <div>
     <form method="post" id="signup" enctype="multipart/form-data">
-        <div class="d-flex justify-content-center mb-5">
-            <input name="profile" type="file" id="edit-image" class="d-none" />
-            @{
-                if (Model.profile == null)
-                {
-                    <label name="profile-photo" for="edit-image" id="image-holder" class="rounded-circle border border-black img-fluid" style="background-repeat: no-repeat; cursor: pointer; background-image: url(https://freesvg.org/img/abstract-user-flat-4.png); height: 150px; width: 150px; background-size:cover"></label>
+        <div class="p-5 border border-black mb-4">
+            <div class="d-flex justify-content-center mb-5 position-relative">
+                <input name="profile" type="file" id="edit-image" class="d-none" />
+                @{
+                    if (Model.profile == null)
+                    {
+                        <label name="profile-photo" for="edit-image" id="image-holder" class="rounded-circle border border-black img-fluid" style="background-repeat: no-repeat; cursor: pointer; background-image: url(https://freesvg.org/img/abstract-user-flat-4.png); height: 150px; width: 150px; background-size:cover"></label>
+                    }
+                    else
+                    {
+                        <label name="profile-photo" for="edit-image" id="image-holder" class="rounded-circle border border-black img-fluid" style="background-repeat: no-repeat; cursor: pointer; background-image: url('data:image;base64,@Model.profile'); height: 150px; width: 150px; background-size:cover"></label>
+                    }
                 }
-                else
-                {
-                    <label name="profile-photo" for="edit-image" id="image-holder" class="rounded-circle border border-black img-fluid" style="background-repeat: no-repeat; cursor: pointer; background-image: url('data:image;base64,@Model.profile'); height: 150px; width: 150px; background-size:cover"></label>
-                }
-            }
-        </div>
-        <div class="form-floating mb-3">
-            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @placeholder = "" })
-            @Html.LabelFor(m => m.Username, "Username")
-            @Html.ValidationMessageFor(m => m.Username, null, new { @class = "text-danger" })
-        </div>
-        <div class="form-floating mb-3">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "" })
-            @Html.LabelFor(m => m.Email, "Email")
-            @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
-        </div>
-        <div class="form-floating mb-3">
-            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @placeholder = "" })
-            @Html.LabelFor(m => m.Password, "Password")
-            @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" })
+
+                <div class="position-absolute start-50 top-100 translate-middle-x mt-1 ">
+                    <label for="edit-image" class="btn btn-primary btn-sm">Edit</label>
+                    @{
+                        if (Model.profile != null)
+                        {
+                            <button type="button" class="btn btn-danger delete-doc btn-sm " doc="delete_profile">Delete</button>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @placeholder = "" })
+                @Html.LabelFor(m => m.Username, "Username")
+                @Html.ValidationMessageFor(m => m.Username, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-floating mb-3">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "" })
+                @Html.LabelFor(m => m.Email, "Email")
+                @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-floating mb-3">
+                @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @placeholder = "" })
+                @Html.LabelFor(m => m.Password, "Password")
+                @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" })
+            </div>
         </div>
         @{
             if (Model.Userrole == "User")
             {
-                <div class="border p-5">
+                <div class="border border-black p-5">
                     <h3 class="mb-5">Your Documents:</h3>
                     <div class="row justify-content-between">
-                        <div class="border d-flex flex-column p-3 col-3">
+                        <div class="border border-black p-3 col-3">
                             <p class="fw-bold">Aadhar Card:</p>
-                            <div>
+                            <div class="d-flex">
                                 <input type="file" name="aadhar_card" />
-                                <button type="button" class="btn btn-danger btn-sm erase-btn">clear</button>
-                                @{
-                                    if (Model.aadharCard != null)
-                                    {
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#aadharModal">View</button>
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-danger btn-sm erase-btn">clear</button>
+                                    @{
+                                        if (Model.aadharCard != null)
+                                        {
+                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#aadharModal">View</button>
+                                        }
                                     }
-                                }
+                                </div>
                             </div>
                         </div>
-                        <div class="border d-flex flex-column p-3 col-3">
+                        <div class="border border-black p-3 col-3">
                             <p class="fw-bold">12th Marksheet:</p>
-                            <div>
+                            <div class="d-flex">
                                 <input type="file" name="12Marksheet" />
-                                <button type="button" class="btn btn-danger btn-sm erase-btn">clear</button>
-                                @{
-                                    if (Model.Marksheet12 != null)
-                                    {
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#marksheet12Modal">View</button>
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-danger btn-sm erase-btn">clear</button>
+                                    @{
+                                        if (Model.Marksheet12 != null)
+                                        {
+                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#marksheet12Modal">View</button>
+                                        }
                                     }
-                                }
+                                </div>
                             </div>
                         </div>
-                        <div class="border d-flex flex-column p-3 col-3">
+                        <div class="border border-black p-3 col-3">
                             <p class="fw-bold">10th Marksheet:</p>
-                            <div>
+                            <div class="d-flex">
                                 <input type="file" name="10Marksheet" />
-                                <button type="button" class="btn btn-danger btn-sm erase-btn">clear</button>
-                                @{
-                                    if (Model.Marksheet10 != null)
-                                    {
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#marksheet10Modal">View</button>
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-danger btn-sm erase-btn">clear</button>
+                                    @{
+                                        if (Model.Marksheet10 != null)
+                                        {
+                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#marksheet10Modal">View</button>
+                                        }
                                     }
-                                }
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -36,11 +36,13 @@ namespace QuizComputation_490_Model.CustomModels
         public bool delete_aadhar_card { get; set; }
         public bool delete_Marksheet12 { get; set; }
         public bool delete_Marksheet10 { get; set; }
+        public bool delete_profile { get; set; }
         public NewRegistration()
         {
             delete_aadhar_card = false;
             delete_Marksheet12 = false;
             delete_Marksheet10 = false;
+            delete_profile = false;
         }
     }
 }

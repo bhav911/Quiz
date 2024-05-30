@@ -13,7 +13,7 @@
             </div>
         }
     }
-    <div class="border p-5">
+    <div class="border border-black p-5">
         <div class="d-flex justify-content-center">
             @{
                 if (Model.profile == null)
@@ -47,11 +47,11 @@
     @{
         if (Model.Userrole == "User")
         {
-            <div class="border p-5">
-                <h3 class="mb-5">Your Documents:</h3>
+            <div class="border border-black p-5 mt-5">
+                <h3 class="mb-4">Your Documents:</h3>
                 <div class="row justify-content-between">
-                    <div class="border d-flex justify-content-between p-3 col-3">
-                        <p class="fw-bold">Aadhar Card:</p>
+                    <div class="border border-black d-flex align-items-center justify-content-between p-3 col-3">
+                        <p class="fw-bold mb-0">Aadhar Card:</p>
                         <div>
                             @{
                                 if (Model.aadharCard != null)
@@ -65,8 +65,8 @@
                             }
                         </div>
                     </div>
-                    <div class="border d-flex justify-content-between p-3 col-3">
-                        <p class="fw-bold">12th Marksheet:</p>
+                    <div class="border border-black d-flex align-items-center justify-content-between p-3 col-3">
+                        <p class="fw-bold mb-0">12th Marksheet:</p>
                         <div>
                             @{
                                 if (Model.Marksheet12 != null)
@@ -80,8 +80,8 @@
                             }
                         </div>
                     </div>
-                    <div class="border d-flex justify-content-between p-3 col-3">
-                        <p class="fw-bold">10th Marksheet:</p>
+                    <div class="border border-black d-flex align-items-center justify-content-between p-3 col-3">
+                        <p class="fw-bold mb-0">10th Marksheet:</p>
                         <div>
                             @{
                                 if (Model.Marksheet10 != null)
