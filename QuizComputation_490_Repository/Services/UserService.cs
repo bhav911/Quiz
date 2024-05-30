@@ -70,8 +70,14 @@ namespace QuizComputation_490_Repository.Services
                 user.password = updatedInfo.Password;
                 user.email = updatedInfo.Email;
                 user.updatedAt = System.DateTime.Now;
-                if(updatedInfo.profile != null)
+                if (updatedInfo.profile != null)
                     user.UserProfile.FirstOrDefault(u => u.userID == userID).profileContent = updatedInfo.profile;
+                if (updatedInfo.aadharCard != null || updatedInfo.delete_aadhar_card)
+                    user.UserProfile.FirstOrDefault(u => u.userID == userID).aadharCard = updatedInfo.aadharCard;
+                if (updatedInfo.Marksheet12 != null || updatedInfo.delete_Marksheet12)
+                    user.UserProfile.FirstOrDefault(u => u.userID == userID).Marksheet12 = updatedInfo.Marksheet12;
+                if (updatedInfo.Marksheet10 != null || updatedInfo.delete_Marksheet10)
+                    user.UserProfile.FirstOrDefault(u => u.userID == userID).Marksheet10 = updatedInfo.Marksheet10;
                 db.SaveChanges();
                 return true;
             }
@@ -81,10 +87,12 @@ namespace QuizComputation_490_Repository.Services
             }
         }
 
-        public string GetProfileImage(int userID)
+        public void GetMultiMedia(NewRegistration user)
         {
-            string profileData = db.UserProfile.FirstOrDefault(u => u.userID == userID).profileContent;
-            return profileData;
+            user.aadharCard = db.UserProfile.FirstOrDefault(u => u.userID == user.UserID).aadharCard;
+            user.profile = db.UserProfile.FirstOrDefault(u => u.userID == user.UserID).profileContent;
+            user.Marksheet12 = db.UserProfile.FirstOrDefault(u => u.userID == user.UserID).Marksheet12;
+            user.Marksheet10 = db.UserProfile.FirstOrDefault(u => u.userID == user.UserID).Marksheet10;
         }
 
     }

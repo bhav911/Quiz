@@ -71,6 +71,9 @@
     <Property Name="profileID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="userID" Type="int" />
     <Property Name="profileContent" Type="text" />
+    <Property Name="aadharCard" Type="text" />
+    <Property Name="Marksheet12" Type="text" />
+    <Property Name="Marksheet10" Type="text" />
   </EntityType>
   <EntityType Name="Users">
     <Key>

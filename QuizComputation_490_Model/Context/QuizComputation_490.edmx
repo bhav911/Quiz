@@ -76,6 +76,9 @@
           <Property Name="profileID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="userID" Type="int" />
           <Property Name="profileContent" Type="text" />
+          <Property Name="aadharCard" Type="text" />
+          <Property Name="Marksheet12" Type="text" />
+          <Property Name="Marksheet10" Type="text" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -522,6 +525,9 @@
           <Property Name="userID" Type="Int32" />
           <Property Name="profileContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Users" Relationship="QuizComputation_490Model.fk_userID_userProfie" FromRole="UserProfile" ToRole="Users" />
+          <Property Name="aadharCard" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Marksheet12" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Marksheet10" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="fk_userID_userProfie">
           <End Type="QuizComputation_490Model.Users" Role="Users" Multiplicity="0..1" />
@@ -626,6 +632,9 @@
           <EntitySetMapping Name="UserProfile">
             <EntityTypeMapping TypeName="QuizComputation_490Model.UserProfile">
               <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="Marksheet10" ColumnName="Marksheet10" />
+                <ScalarProperty Name="Marksheet12" ColumnName="Marksheet12" />
+                <ScalarProperty Name="aadharCard" ColumnName="aadharCard" />
                 <ScalarProperty Name="profileContent" ColumnName="profileContent" />
                 <ScalarProperty Name="userID" ColumnName="userID" />
                 <ScalarProperty Name="profileID" ColumnName="profileID" />

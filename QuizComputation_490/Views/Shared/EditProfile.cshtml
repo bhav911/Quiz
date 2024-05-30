@@ -11,11 +11,11 @@
             @{
                 if (Model.profile == null)
                 {
-                    <label for="edit-image" id="image-holder" class="rounded-circle border border-black img-fluid" style="background-repeat: no-repeat; cursor: pointer; background-image: url(https://freesvg.org/img/abstract-user-flat-4.png); height: 150px; width: 150px; background-size:cover"></label>
+                    <label name="profile-photo" for="edit-image" id="image-holder" class="rounded-circle border border-black img-fluid" style="background-repeat: no-repeat; cursor: pointer; background-image: url(https://freesvg.org/img/abstract-user-flat-4.png); height: 150px; width: 150px; background-size:cover"></label>
                 }
                 else
                 {
-                    <label for="edit-image" id="image-holder" class="rounded-circle border border-black img-fluid" style="background-repeat: no-repeat; cursor: pointer; background-image: url('data:image;base64,@Model.profile'); height: 150px; width: 150px; background-size:cover"></label>
+                    <label name="profile-photo" for="edit-image" id="image-holder" class="rounded-circle border border-black img-fluid" style="background-repeat: no-repeat; cursor: pointer; background-image: url('data:image;base64,@Model.profile'); height: 150px; width: 150px; background-size:cover"></label>
                 }
             }
         </div>
@@ -34,13 +34,115 @@
             @Html.LabelFor(m => m.Password, "Password")
             @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" })
         </div>
+        @{
+            if (Model.Userrole == "User")
+            {
+                <div class="border p-5">
+                    <h3 class="mb-5">Your Documents:</h3>
+                    <div class="row justify-content-between">
+                        <div class="border d-flex flex-column p-3 col-3">
+                            <p class="fw-bold">Aadhar Card:</p>
+                            <div>
+                                <input type="file" name="aadhar_card" />
+                                <button type="button" class="btn btn-danger rounded-circle btn-sm erase-btn">X</button>
+                                @{
+                                    if (Model.aadharCard != null)
+                                    {
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#aadharModal">View</button>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="border d-flex flex-column p-3 col-3">
+                            <p class="fw-bold">12th Marksheet:</p>
+                            <div>
+                                <input type="file" name="12Marksheet" />
+                                <button type="button" class="btn btn-danger rounded-circle btn-sm erase-btn">X</button>
+                                @{
+                                    if (Model.Marksheet12 != null)
+                                    {
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#marksheet12Modal">View</button>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="border d-flex flex-column p-3 col-3">
+                            <p class="fw-bold">10th Marksheet:</p>
+                            <div>
+                                <input type="file" name="10Marksheet" />
+                                <button type="button" class="btn btn-danger rounded-circle btn-sm erase-btn">X</button>
+                                @{
+                                    if (Model.Marksheet10 != null)
+                                    {
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#marksheet10Modal">View</button>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+
+                <div class="modal fade" id="aadharModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Aadhar Card</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <embed type="application/pdf" src="data:application/pdf;base64,@Model.aadharCard" style="width: 100%; height: 600px; " />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger delete-doc" doc="delete_aadhar_card">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="marksheet12Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">12 Marksheet</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="data:image;base64,@Model.Marksheet12" style="width: 100%; height: 600px; " />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger delete-doc" doc="delete_Marksheet12">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="marksheet10Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">10 Marksheet</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="data:image;base64,@Model.Marksheet10" style=" width: 100%; height: 600px;" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger delete-doc" doc="delete_Marksheet10">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
         <div class="d-flex justify-content-center my-3 gap-2">
             <button type="submit" class="btn btn-success">Save</button>
             @Html.ActionLink("Cancel", "ShowProfile", null, new { @class = "btn btn-secondary" })
         </div>
     </form>
 </div>
+
 
 <script>
     function displayImage(event) {
@@ -59,4 +161,30 @@
     }
 
     document.getElementById('edit-image').addEventListener('change', displayImage);
+
+    $('.erase-btn').on('click', function () {
+        let file = this.previousElementSibling;
+        $(file).val("");
+    })
+
+    $('.delete-doc').on('click', function () {
+        if ($(this).text() == "Undo Delete") {
+            $(this).text("Delete");
+            $(this).removeClass('btn-warning')
+            $(this).addClass('btn-danger')
+            let input = this.nextElementSibling;
+            $(input).remove();
+        }
+        else {
+            $(this).text("Undo Delete");
+            $(this).addClass('btn-warning')
+            $(this).removeClass('btn-danger')
+            let input = $('<input>');
+            $(input).attr('name', $(this).attr('doc'))
+            $(input).addClass('d-none')
+            $(this).after(input);
+            $(input).val(true);
+        }
+
+    })
 </script>

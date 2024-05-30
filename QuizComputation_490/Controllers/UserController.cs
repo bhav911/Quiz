@@ -46,15 +46,14 @@ namespace QuizComputation_490.Controllers
             return base64String;
         }
 
-        [System.Web.Mvc.HttpPost]   
+        [System.Web.Mvc.HttpPost]
         public async Task<ActionResult> EditProfile(NewRegistration updatedInfo)
         {
-            if (Request.Files.Count > 0)
-            {
-                HttpPostedFileBase file = Request.Files[0];
-                string a = ConvertToStringPhoto(file);
-                updatedInfo.profile = a;
-            }
+            updatedInfo.profile = ConvertToStringPhoto(Request.Files["profile"]);
+            updatedInfo.aadharCard = ConvertToStringPhoto(Request.Files["aadhar_card"]);
+            updatedInfo.Marksheet12 = ConvertToStringPhoto(Request.Files["12Marksheet"]);
+            updatedInfo.Marksheet10 = ConvertToStringPhoto(Request.Files["10Marksheet"]);
+
             string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponsePost($"api/UserAPI/EditProfile?userID={UserSession.UserID}", JsonConvert.SerializeObject(updatedInfo));
             TempData["success"] = "Updated Profile Successfully";
             return RedirectToAction("ShowProfile");
@@ -93,7 +92,7 @@ namespace QuizComputation_490.Controllers
         [System.Web.Mvc.HttpPost]
         public async Task<PartialViewResult> SaveAnswers(List<int> questions, List<int> answers, int quizID)
         {
-            if(questions.Count() != 5 || answers.Count() != 5)
+            if (questions.Count() != 5 || answers.Count() != 5)
             {
                 throw new Exception();
             }

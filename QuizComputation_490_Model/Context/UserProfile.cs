@@ -17,6 +17,9 @@ namespace QuizComputation_490_Model.Context
         public int profileID { get; set; }
         public Nullable<int> userID { get; set; }
         public string profileContent { get; set; }
+        public string aadharCard { get; set; }
+        public string Marksheet12 { get; set; }
+        public string Marksheet10 { get; set; }
     
         public virtual Users Users { get; set; }
     }

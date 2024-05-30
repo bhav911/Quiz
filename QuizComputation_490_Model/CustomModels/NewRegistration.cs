@@ -30,5 +30,17 @@ namespace QuizComputation_490_Model.CustomModels
         [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Invalid email format")]
         public string Email { get; set; }
         public string profile { get; set; }
+        public string aadharCard { get; set; }
+        public string Marksheet12 { get; set; }
+        public string Marksheet10 { get; set; }
+        public bool delete_aadhar_card { get; set; }
+        public bool delete_Marksheet12 { get; set; }
+        public bool delete_Marksheet10 { get; set; }
+        public NewRegistration()
+        {
+            delete_aadhar_card = false;
+            delete_Marksheet12 = false;
+            delete_Marksheet10 = false;
+        }
     }
 }

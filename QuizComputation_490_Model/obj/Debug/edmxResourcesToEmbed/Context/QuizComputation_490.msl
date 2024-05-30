@@ -86,6 +86,9 @@
     <EntitySetMapping Name="UserProfile">
       <EntityTypeMapping TypeName="QuizComputation_490Model.UserProfile">
         <MappingFragment StoreEntitySet="UserProfile">
+          <ScalarProperty Name="Marksheet10" ColumnName="Marksheet10" />
+          <ScalarProperty Name="Marksheet12" ColumnName="Marksheet12" />
+          <ScalarProperty Name="aadharCard" ColumnName="aadharCard" />
           <ScalarProperty Name="profileContent" ColumnName="profileContent" />
           <ScalarProperty Name="userID" ColumnName="userID" />
           <ScalarProperty Name="profileID" ColumnName="profileID" />
