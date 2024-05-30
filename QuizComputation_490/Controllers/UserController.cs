@@ -144,5 +144,13 @@ namespace QuizComputation_490.Controllers
             ViewBag.role = role;
             return View();
         }
+
+        public async Task<ActionResult> DeleteProfile(int userID)
+        {
+            string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponseGet($"api/UserAPI/DeleteProfile?userID={userID}");
+            HttpContext.Session.Clear();
+            TempData["success"] = "Account Deleted Successfully";
+            return RedirectToAction("SignIn", "Login");
+        }
     }
 }

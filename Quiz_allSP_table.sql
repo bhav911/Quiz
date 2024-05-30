@@ -278,6 +278,9 @@ CREATE TABLE [dbo].[UserProfile](
 	[profileID] [int] IDENTITY(1,1) NOT NULL,
 	[userID] [int] NULL,
 	[profileContent] [text] NULL,
+	[aadharCard] [text] NULL,
+	[Marksheet12] [text] NULL,
+	[Marksheet10] [text] NULL,
  CONSTRAINT [pk_userProfile] PRIMARY KEY CLUSTERED 
 (
 	[profileID] ASC
@@ -291,6 +294,8 @@ GO
 
 ALTER TABLE [dbo].[UserProfile] CHECK CONSTRAINT [fk_userID_userProfie]
 GO
+
+
 
 
 

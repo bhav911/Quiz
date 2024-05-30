@@ -32,7 +32,10 @@ namespace OnlineStoreHelper.Helpers
                 UserID = user.userID,
                 Email = user.email,
                 Username = user.username,
-                Password = user.password
+                Password = user.password,
+                aadharCard = user.UserProfile.FirstOrDefault().aadharCard,
+                Marksheet12 = user.UserProfile.FirstOrDefault().Marksheet12,
+                Marksheet10 = user.UserProfile.FirstOrDefault().Marksheet10                
             };
 
             return newRegistration;

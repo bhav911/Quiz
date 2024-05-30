@@ -14,5 +14,6 @@ namespace QuizComputation_490_Repository.Interface
         Users AuthenticateUser(LoginModel credentials);
         Users GetProfile(int userID);
         bool updateProfile(NewRegistration updatedInfo, int userID);
+        void DeleteUser(int userID);
     }
 }

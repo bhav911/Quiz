@@ -87,5 +87,20 @@ namespace QuizComputation_490_WebAPI.Controllers
             int score = _quiz.SubmitAnswer(answerModel, userID);
             return score;
         }
+
+        [HttpGet]
+        [Route("api/UserAPI/DeleteProfile")]
+        public bool DeleteProfile(int userID)
+        {
+            try
+            {
+                _user.DeleteUser(userID);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

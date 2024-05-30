@@ -95,5 +95,23 @@ namespace QuizComputation_490_Repository.Services
             user.Marksheet10 = db.UserProfile.FirstOrDefault(u => u.userID == user.UserID).Marksheet10;
         }
 
+        public void DeleteUser(int userID)
+        {
+            Users user = db.Users.FirstOrDefault(u => u.userID == userID);
+            //remove result entry
+            user.Results.Remove(user.Results.FirstOrDefault(r => r.userID == userID));
+            List<UserAnswers> userAnswersList = user.UserAnswers.ToList();
+            //remove userAnswer entries
+            foreach(UserAnswers userAnswers in userAnswersList)
+            {
+                user.UserAnswers.Remove(userAnswers);
+            }
+            //remove userProfile entry
+            user.UserProfile.Remove(user.UserProfile.FirstOrDefault(r => r.userID == userID));
+            //remove user
+            db.Users.Remove(user);
+            db.SaveChanges();
+        }
+
     }
 }
