@@ -41,6 +41,11 @@ namespace QuizComputation_490.Controllers
                     TempData["error"] = "You missed to select correct option for some question";
                     return View(newQuiz);
                 }
+                if (!CheckQuestionValidity(newQuiz))
+                {
+                    TempData["error"] = "Can't have same questions";
+                    return View(newQuiz);
+                }
                 string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponsePost($"api/AdminAPI/CreateQuiz?adminID={UserSession.UserID}", JsonConvert.SerializeObject(newQuiz));
                 TempData["success"] = "Quiz Created Successfully";
                 return RedirectToAction("GetAllQuiz");
@@ -48,26 +53,7 @@ namespace QuizComputation_490.Controllers
             TempData["error"] = "Quiz Contains Invalid Fields";
             return View(newQuiz);
         }
-        private bool CheckIfOptionIsSelected(QuizModel newQuiz)
-        {
-            foreach (var question in newQuiz.QuizQuestionList)
-            {
-                bool flag = false;
-                foreach (var option in question.OptionList)
-                {
-                    if (option.IsCorrect)
-                    {
-                        flag = true;
-                        break;
-                    }
-                }
-                if (!flag)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+
         public async Task<ActionResult> GetAllQuiz()
         {
             string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponseGet($"api/AdminAPI/GetAllQuiz?adminID={UserSession.UserID}");
@@ -80,6 +66,11 @@ namespace QuizComputation_490.Controllers
         {
             string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponseGet($"api/AdminAPI/EditQuiz?adminID={UserSession.UserID}&quizID={quizID}");
             QuizModel quizModel = JsonConvert.DeserializeObject<QuizModel>(response);
+            if (quizModel.isAttempted)
+            {
+                TempData["error"] = "Can't edit quiz";
+                return RedirectToAction("GetAllQuiz");
+            }
             return View("CreateQuiz", quizModel);
         }
 
@@ -100,7 +91,11 @@ namespace QuizComputation_490.Controllers
         public async Task<ActionResult> DeleteQuiz(int quizID)
         {
             string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponseGet($"api/AdminAPI/DeleteQuiz?quizID={quizID}");
-            TempData["success"] = "Quiz Deleted Successfully";
+            bool status = JsonConvert.DeserializeObject<bool>(response);
+            if (status)
+                TempData["success"] = "Quiz Deleted Successfully";
+            else
+                TempData["error"] = "Can't delete quiz";
             return RedirectToAction("GetAllQuiz");
         }
 
@@ -130,6 +125,45 @@ namespace QuizComputation_490.Controllers
             string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponseGet($"api/AdminAPI/EditProfile?adminID={UserSession.UserID}");
             NewRegistration result = JsonConvert.DeserializeObject<NewRegistration>(response);
             return View(result);
+        }
+
+        public bool CheckQuestionValidity(QuizModel newQuiz)
+        {
+            for (int i = 0; i < newQuiz.QuizQuestionList.Count(); i++)
+            {
+                QuestionModel mainQuestion = newQuiz.QuizQuestionList[i];
+                string main = mainQuestion.QuestionText;
+                for (int j = 0; j < newQuiz.QuizQuestionList.Count(); j++)
+                {
+                    QuestionModel secondaryQuestion = newQuiz.QuizQuestionList[j];
+                    if (i != j && secondaryQuestion.QuestionText.Equals(mainQuestion.QuestionText))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        private bool CheckIfOptionIsSelected(QuizModel newQuiz)
+        {
+            foreach (var question in newQuiz.QuizQuestionList)
+            {
+                bool flag = false;
+                foreach (var option in question.OptionList)
+                {
+                    if (option.IsCorrect)
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
     }

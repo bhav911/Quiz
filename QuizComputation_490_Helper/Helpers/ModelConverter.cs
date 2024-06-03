@@ -92,7 +92,8 @@ namespace OnlineStoreHelper.Helpers
                     QuizTitle = quiz.title,
                     QuizDescription = quiz.description,
                     QuizID = quiz.quizID,
-                    isCompleted = quiz.Results.Where(q => q.quizID == quiz.quizID && q.userID == userID).FirstOrDefault() != null
+                    isCompleted = quiz.Results.Where(q => q.quizID == quiz.quizID && q.userID == userID).FirstOrDefault() != null,
+                    isAttempted = quiz.Results.Where(q => q.quizID == quiz.quizID).FirstOrDefault() != null
                 };
 
                 quizModelList.Add(quizModel);
@@ -109,7 +110,8 @@ namespace OnlineStoreHelper.Helpers
                 QuizTitle = quiz.title,
                 QuizDescription = quiz.description,
                 FirstQuestionID = quiz.Questions.OrderBy(q => q.questionID).FirstOrDefault().questionID ,
-                isCompleted = quiz.Results.Where(q => q.quizID == quiz.quizID && q.userID == userID).FirstOrDefault() != null
+                isCompleted = quiz.Results.Where(q => q.quizID == quiz.quizID && q.userID == userID).FirstOrDefault() != null,
+                isAttempted = quiz.Results.Where(q => q.quizID == quiz.quizID).FirstOrDefault() != null
             };
             if(role != "user")
                 quizModel.QuizQuestionList = ConvertQuestionListToQuestionModelList(quiz.Questions.ToList());

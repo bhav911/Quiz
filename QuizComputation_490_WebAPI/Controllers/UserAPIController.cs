@@ -49,7 +49,13 @@ namespace QuizComputation_490_WebAPI.Controllers
         public QuizModel StartQuiz(int quizID, int userID)
         {
             Quizzes quiz = _quiz.GetQuiz(quizID);
-            QuizModel quizModel = ModelConverter.ConvertQuizToQuizModel(quiz, userID, "user");
+            QuizModel quizModel = null;
+            if (quiz != null){
+                quizModel = ModelConverter.ConvertQuizToQuizModel(quiz, userID, "user");
+            }
+            else{
+                quizModel.isAttempted = true;
+            }
             return quizModel;
         }
 

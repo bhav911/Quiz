@@ -21,5 +21,6 @@ namespace QuizComputation_490_Model.CustomModels
         public string QuizDescription { get; set; }
         public List<QuestionModel> QuizQuestionList { get; set; }
         public bool isCompleted { get; set; }
+        public bool isAttempted { get; set; }
     }
 }

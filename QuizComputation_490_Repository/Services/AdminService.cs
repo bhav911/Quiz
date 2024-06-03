@@ -146,13 +146,11 @@ namespace QuizComputation_490_Repository.Services
             try
             {
                 Quizzes quiz = db.Quizzes.Where(q => q.quizID == quizID).FirstOrDefault();
+                if (quiz == null || quiz.Results.FirstOrDefault() != null)
+                    return false;
                 List<Questions> questionList = new List<Questions>();
-                Results result = db.Results.FirstOrDefault(q => q.quizID == quiz.quizID);
-                db.Results.Remove(result);
                 foreach (Questions question in quiz.Questions)
                 {
-                    UserAnswers userAnswer = db.UserAnswers.FirstOrDefault(q => q.questionID == question.questionID);
-                    db.UserAnswers.Remove(userAnswer);
                     List<Options> optionList = new List<Options>();
                     foreach(Options option in question.Options)
                     {

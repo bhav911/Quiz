@@ -37,9 +37,16 @@
                 @item.QuizDescription
             </td>
             <td>
-                <div class="d-flex flex-nowrap gap-2">
-                    @Html.ActionLink("Edit", "EditQuiz", "Admin", new { @quizID = item.QuizID }, new { @class = "btn btn-primary btn-sm" })
-                    @Html.ActionLink("Delete", "DeleteQuiz", "Admin", new { @quizID = item.QuizID }, new { @class = "btn btn-danger btn-sm" })
+                <div class="d-flex flex-nowrap gap-2 justify-content-center">
+                    @if (!item.isAttempted)
+                    {
+                        @Html.ActionLink("Edit", "EditQuiz", "Admin", new { @quizID = item.QuizID }, new { @class = "btn btn-primary btn-sm" })
+                        @Html.ActionLink("Delete", "DeleteQuiz", "Admin", new { @quizID = item.QuizID }, new { @class = "btn btn-danger btn-sm" })
+                    }
+                else
+                {
+                    <p class="text-danger text-nowrap fw-bold"><small>Can't Modify</small></p>
+                }
                 </div>
             </td>
         </tr>

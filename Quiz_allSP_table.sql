@@ -92,6 +92,18 @@ BEGIN
 END
 
 
+CREATE PROC GetUserResult  
+ @quizID int,  
+ @userID int  
+AS  
+BEGIN  
+ select o.questionID, o.optionID as 'Correct Option', u.selectedOptionID as 'User Selected Option'  
+ from options as o  
+ inner join UserAnswers as u  
+ on o.questionID = u.questionID  
+ where u.quizID = @quizID AND u.userID = @userID AND o.isCorrect = 1  
+END
+
 
 
 

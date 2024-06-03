@@ -6,57 +6,158 @@
 
 <script>
 
-    function addQuestion() {
-        let NumOfQuestions = $('.question').length;
-        if (NumOfQuestions == 5) {
-            toastr.warning("Can't add more than 5 Questions")
+    function CheckOptionSelected() {
+        let allQuestions = $('.question');
+        let flag = true;
+        $.each(allQuestions, (ind, ele) => {
+            debugger
+            let select = $(ele).find('select')[0];
+            if ($(select).val() == "Select Correct option") {
+                toastr.error(`Please Select a correct option for question-${ind + 1}`);
+                flag = false;
+            }
+        })
+
+        return flag;
+    }
+
+    function checkQuestionDetails() {
+        let allQuestions = $('.question');
+        var isGenValid = true;
+        $.each(allQuestions, (qind, ele) => {
+            var isValid = true;
+            let question = $(ele).find('.questionText')[0];
+            let options = $(ele).find('.optionText');
+            if (isValid && $(question).val() == "") {
+                isGenValid = false;
+                toastr.error(`Please fill Question-${qind+1} Details first`)
+                isValid = false;
+            }
+            $.each(options, (ind, ele) => {
+                if (isValid && $(ele).val() == "") {
+                    isGenValid = false;
+                    toastr.error(`Please fill Question-${qind + 1} Details first`)
+                    isValid = false;
+                }
+            })
+        })
+        return isGenValid;
+    }
+
+    function checkQuizDetails() {
+        if ($('#QuizDescription').val() == "" || $('#QuizTitle').val() == "") {
+            toastr.error("Please fill Quiz Details first")
+            return false;
+        }
+        return true;
+    }
+
+    function checkSimilarQuestions() {
+        var flag = false;
+        let allQuestions = $('.question');
+        $.each(allQuestions, (ind1, ele1) => {
+            debugger
+            if (flag)
+                return;
+            let question1 = $(ele1).find('.questionText')[0];
+            $.each(allQuestions, (ind2, ele2) => {
+                debugger
+                let question2 = $(ele2).find('.questionText')[0];
+                if (ind1 != ind2 && $(question2).val() == $(question1).val()) {
+                    toastr.error(`Can't have same questions at Question-${ind1 + 1} and Question-${ind2 + 1}`);
+                    flag = true;
+                }
+            })
+        })
+
+        return flag;
+    }
+
+    function checkStatus() {
+        if (!checkQuizDetails()) {
             return;
         }
-        if (NumOfQuestions == 4) {
-            $('#createQuizBtn').prop('disabled', false)
-        }
-        else {
-            $('#createQuizBtn').prop('disabled', true)
+
+        if (!checkQuestionDetails()) {
+            return;
         }
 
-            let holder = $('#QuestionHolder');
-            holder.append(`
-                <div class="question mb-5">
-                    <div class="d-flex gap-4">
-                        <input type="text" name="QuizQuestionList.Index" value="${NumOfQuestions}" hidden/>
-                        <p class=" fs-4"> ${NumOfQuestions + 1}.</p>
-                        <input class = "form-control mb-3" name="QuizQuestionList[${NumOfQuestions}].QuestionText" />
-                    </div>
-                    <div>
-                        <div class="row">
-                            @{
-                                for (int option = 0; option < 4; option++)
-                                {
-                                    <div class="col-6 d-flex align-items-center gap-4 mb-4">
-                                        <input hidden class = "form-control" name="QuizQuestionList[${NumOfQuestions}].OptionList[@option].IsCorrect" value=false />
-                                        <span class=" fs-4">(@((char)('A' + option)))</span>
-                                        <input class = "form-control" name="QuizQuestionList[${NumOfQuestions}].OptionList[@option].OptionText" />
-                                    </div>
-                                }
+        let NumOfQuestions = $('.question').length;
+
+        if (checkSimilarQuestions())
+            return;
+
+        if (!CheckOptionSelected()) {
+            return;
+        }
+
+
+        if (NumOfQuestions < 5) {
+            toastr.warning("Atleast 5 questions required");
+            return;
+        }
+        $('#quizForm').submit();
+    }
+
+    function addQuestion() {
+
+        if (!checkQuizDetails()) {
+            return;
+        }
+
+        let allQuestions = $('.question');
+        if (!checkQuestionDetails()) {
+            return;
+        }
+
+
+        if (!CheckOptionSelected()) {
+            return;
+        }
+
+        let NumOfQuestions = $(allQuestions).length;
+        if (NumOfQuestions == 5) {
+            toastr.error("Can't add more than 5 Questions")
+            return;
+        }
+
+        let holder = $('#QuestionHolder');
+        holder.append(`
+            <div class="question mb-5">
+                <div class="d-flex gap-4">
+                    <input type="text" name="QuizQuestionList.Index" value="${NumOfQuestions}" hidden/>
+                    <p class=" fs-4"> ${NumOfQuestions + 1}.</p>
+                    <input class = "form-control mb-3 questionText" name="QuizQuestionList[${NumOfQuestions}].QuestionText" />
+                </div>
+                <div>
+                    <div class="row">
+                        @{
+                            for (int option = 0; option < 4; option++)
+                            {
+                                <div class="col-6 d-flex align-items-center gap-4 mb-4">
+                                    <input hidden class = "form-control" name="QuizQuestionList[${NumOfQuestions}].OptionList[@option].IsCorrect" value=false />
+                                    <span class=" fs-4">(@((char)('A' + option)))</span>
+                                    <input class = "form-control optionText" name="QuizQuestionList[${NumOfQuestions}].OptionList[@option].OptionText" />
+                                </div>
                             }
-                            <div class="d-flex justify-content-end">
-                                <select onchange="bindCorrectAnswer(${NumOfQuestions}, this)">
-                                    <option>Select Correct option</option>
-                                    <option value=0>A</option>
-                                    <option value=1>B</option>
-                                    <option value=2>C</option>
-                                    <option value=3>D</option>
-                                </select>
-                            </div>
+                        }
+                        <div class="d-flex justify-content-end">
+                            <select onchange="bindCorrectAnswer(${NumOfQuestions}, this)">
+                                <option>Select Correct option</option>
+                                <option value=0>A</option>
+                                <option value=1>B</option>
+                                <option value=2>C</option>
+                                <option value=3>D</option>
+                            </select>
                         </div>
                     </div>
                 </div>
-                <hr class="my-5"/>
-            `)
-        }
+            </div>
+            <hr class="my-5"/>
+        `)
+    }
 
     function bindCorrectAnswer(QuesID, ele) {
-        debugger
         let correctAns = $(ele).val();
         for (let i = 0; i < 4; i++) {
             let element = $(`[name = "QuizQuestionList[${QuesID}].OptionList[${i}].IsCorrect"]`);
@@ -68,7 +169,7 @@
 </script>
 
 <div class="p-5 border">
-    @using (Html.BeginForm())
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "quizForm" }))
     {
         <h3 class="mb-4">Quiz Details</h3>
         <div class="row">
@@ -104,7 +205,7 @@
                                 <p class=" fs-4"> @(item + 1).</p>
                                 <div class="w-100 mb-3">
                                     <input type="text" name="QuizQuestionList.Index" value="@item" hidden />
-                                    @Html.TextBoxFor(m => m.QuizQuestionList[item].QuestionText, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.QuizQuestionList[item].QuestionText, new { @class = "form-control questionText" })
                                     @Html.TextBoxFor(m => m.QuizQuestionList[item].QuestionID, new { @class = "form-control", @type = "hidden" })
                                     @Html.ValidationMessageFor(m => m.QuizQuestionList[item].QuestionText, null, new { @class = "text-danger" })
                                 </div>
@@ -118,7 +219,7 @@
                                                 @Html.TextBoxFor(m => m.QuizQuestionList[item].OptionList[option].IsCorrect, new { @class = "form-control", @type = "hidden" })
                                                 <span class=" fs-4">(@((char)('A' + option)))</span>
                                                 <div class="w-100">
-                                                    @Html.TextBoxFor(m => m.QuizQuestionList[item].OptionList[option].OptionText, new { @class = "form-control" })
+                                                    @Html.TextBoxFor(m => m.QuizQuestionList[item].OptionList[option].OptionText, new { @class = "form-control optionText" })
                                                     @Html.ValidationMessageFor(m => m.QuizQuestionList[item].OptionList[option].OptionText, null, new { @class = "text-danger" })
                                                     @Html.TextBoxFor(m => m.QuizQuestionList[item].OptionList[option].OptionID, new { @class = "form-control", @type = "hidden" })
                                                 </div>
@@ -153,14 +254,7 @@
         </div>
         <div class="d-flex justify-content-center gap-2">
             @{
-                if (Model != null)
-                {
-                    <button type="submit" class="btn btn-success" id="createQuizBtn">Save</button>
-                }
-                else
-                {
-                    <button type="submit" class="btn btn-success" id="createQuizBtn" disabled>Create</button>
-                }
+                <button type="button" class="btn btn-success" id="createQuizBtn" onclick="checkStatus()">Save</button>
                 @Html.ActionLink("Cancel", "GetAllQuiz", "Admin", null, new { @class = "btn btn-secondary" })
             }
         </div>
