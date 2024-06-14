@@ -96,6 +96,7 @@
     <Compile Include="CustomModels\LoginModel.cs" />
     <Compile Include="CustomModels\NewRegistration.cs" />
     <Compile Include="CustomModels\OptionModel.cs" />
+    <Compile Include="CustomModels\PaginationModel.cs" />
     <Compile Include="CustomModels\QuizModel.cs" />
     <Compile Include="CustomModels\QuestionModel.cs" />
     <Compile Include="CustomModels\AnswerModel.cs" />

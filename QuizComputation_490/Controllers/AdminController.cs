@@ -54,11 +54,12 @@ namespace QuizComputation_490.Controllers
             return View(newQuiz);
         }
 
-        public async Task<ActionResult> GetAllQuiz()
+        public async Task<ActionResult> GetAllQuiz(int pageNumber = 1)
         {
             string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponseGet($"api/AdminAPI/GetAllQuiz?adminID={UserSession.UserID}");
             List<QuizModel> quizModelList = JsonConvert.DeserializeObject<List<QuizModel>>(response);
-            return View(quizModelList);
+            PaginationModel responsePage = PaginationModel.BindPage(pageNumber, quizModelList.Count(),quizModelList);
+            return View(responsePage);
 
         }
 

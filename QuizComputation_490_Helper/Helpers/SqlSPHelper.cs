@@ -24,7 +24,6 @@ namespace QuizComputation_490.Common
                         foreach(KeyValuePair<string, object> kvp in parameters)
                         {
                             cmd.Parameters.AddWithValue(kvp.Key, kvp.Value);
-
                         }
 
                         using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))

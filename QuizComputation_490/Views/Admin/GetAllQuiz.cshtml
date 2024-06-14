@@ -1,12 +1,39 @@
-﻿@model List<QuizComputation_490_Model.CustomModels.QuizModel>
+﻿@model QuizComputation_490_Model.CustomModels.PaginationModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    li {
+        list-style: none
+    }
+
+    a {
+        text-decoration: none;
+        color: white;
+    }
+</style>
 
 <p class="d-flex justify-content-end">
     @Html.ActionLink("Create Quiz", "CreateQuiz", null, new { @class = "btn btn-primary" })
 </p>
+
+<div class="d-flex gap-2 justify-content-end mt-5 mb-3">
+    @{
+        for (int i = 1; i <= Model.TotalPage; i++)
+        {
+            if (i == Model.CurrentPage)
+            {
+                <a class="btn btn-info fw-bold" href="#">@i</a>
+            }
+            else
+            {
+                @Html.ActionLink($"{@i}", "GetAllQuiz", "Admin", new { @pageNumber = @i }, new { @class = "btn btn-info fw - bold" })
+            }
+        }
+    }
+</div>
+
 <table class="table table-bordered">
     <tr>
         <th class="text-nowrap">
@@ -24,32 +51,33 @@
     </tr>
 
     @{ int counter = 1;}
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @(counter++)
-            </td>
-            <td>
-                @item.QuizTitle
-            </td>
-            <td>
-                @item.QuizDescription
-            </td>
-            <td>
-                <div class="d-flex flex-nowrap gap-2 justify-content-center">
-                    @if (!item.isAttempted)
-                    {
-                        @Html.ActionLink("Edit", "EditQuiz", "Admin", new { @quizID = item.QuizID }, new { @class = "btn btn-primary btn-sm" })
-                        @Html.ActionLink("Delete", "DeleteQuiz", "Admin", new { @quizID = item.QuizID }, new { @class = "btn btn-danger btn-sm" })
-                    }
-                else
-                {
+    @foreach (var item in Model.quizModelList)
+        {
+    <tr>
+        <td>
+            @(counter++)
+        </td>
+        <td>
+            @item.QuizTitle
+        </td>
+        <td>
+            @item.QuizDescription
+        </td>
+        <td>
+            <div class="d-flex flex-nowrap gap-2 justify-content-center">
+                @if (!item.isAttempted)
+                                    {
+                @Html.ActionLink("Edit", "EditQuiz", "Admin", new { @quizID = item.QuizID
+}, new { @class = "btn btn-primary btn-sm" })
+                @Html.ActionLink("Delete", "DeleteQuiz", "Admin", new { @quizID = item.QuizID }, new { @class = "btn btn-danger btn-sm" })
+                                    }
+                                    else
+{
                     <p class="text-danger text-nowrap fw-bold"><small>Can't Modify</small></p>
-                }
-                </div>
-            </td>
-        </tr>
-    }
+}
+            </div>
+        </td>
+    </tr>
+        }
 
 </table>
