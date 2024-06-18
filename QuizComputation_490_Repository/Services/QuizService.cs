@@ -64,7 +64,7 @@ namespace QuizComputation_490_Repository.Services
             {
                 Quizzes quiz = db.Quizzes.Where(q => q.quizID == quizID).FirstOrDefault();
                 int queID = quiz.Questions.OrderBy(q => q.questionID).FirstOrDefault().questionID;
-                return quizID;
+                return queID;
             }
             catch (Exception ex)
             {
@@ -94,7 +94,7 @@ namespace QuizComputation_490_Repository.Services
             {
                 DataTable resultTable;
                 Dictionary<string, object> kvp;
-                for (int it = 0; it < 5; it++)
+                for (int it = 0; it < answerModel.Questions.Count() ; it++)
                 {
                     kvp = new Dictionary<string, object>()
                     {

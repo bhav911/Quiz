@@ -116,10 +116,6 @@
         }
 
         let NumOfQuestions = $(allQuestions).length;
-        if (NumOfQuestions == 5) {
-            toastr.error("Can't add more than 5 Questions")
-            return;
-        }
 
         let holder = $('#QuestionHolder');
         holder.append(`

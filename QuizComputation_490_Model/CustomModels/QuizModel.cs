@@ -14,13 +14,16 @@ namespace QuizComputation_490_Model.CustomModels
         [Required(ErrorMessage = "Please fill Title field")]
         [MaxLength(length:100, ErrorMessage ="Title too long")]
         public string QuizTitle { get; set; }
-
         public int FirstQuestionID { get; set; }
+        public int LastQuestionID { get; set; }
 
         [Required(ErrorMessage = "Please fill Description field")]
         public string QuizDescription { get; set; }
+
         public List<QuestionModel> QuizQuestionList { get; set; }
+
         public bool isCompleted { get; set; }
+
         public bool isAttempted { get; set; }
     }
 }

@@ -41,6 +41,8 @@ namespace QuizComputation_490_WebAPI.Controllers
         {
             Questions quiz = _quiz.GetQuestion(questionID);
             CompactQuestionModel quizModel = ModelConverter.ConvertQuestionToCompactQuestionModel(quiz);
+            quizModel.FirstQuestionID = _quiz.GetFirstQuestionID((int)quiz.quizID);
+            quizModel.LastQuestionID = _quiz.GetLastQuestionID((int)quiz.quizID);
             return quizModel;
         }
 

@@ -8,19 +8,20 @@
     let UserAnswer = {}
 
     function SubmitQuiz(quizID) {
-        debugger
+        
         let submitObject = {
             questions: [],
             answers: []
         }
 
         $.each(UserAnswer, (ind, ele) => {
-            debugger
+            
             submitObject.questions.push(ind);
             submitObject.answers.push(ele);
+        debugger
         })
 
-        debugger
+        
 
         $.ajax({
             url: "/User/SaveAnswers?quizID=" + quizID,
@@ -28,6 +29,23 @@
             content: 'application/json',
             dataType:'html',
             data: submitObject,
+            success: function (response) {
+                
+                $('#QuestionHolder').html(response);
+            },
+            error: function (err) {
+                
+                console.log(err);
+            }
+        })
+    }
+
+    function SeeAnswer(quizID) {
+        debugger
+        $.ajax({
+            url: "/User/SeeAnswers?quizID=" + quizID,
+            type: "GET",
+            dataType: "html",
             success: function (response) {
                 debugger
                 $('#QuestionHolder').html(response);
@@ -39,26 +57,11 @@
         })
     }
 
-    function SeeAnswer(quizID) {
-        $.ajax({
-            url: "/User/SeeAnswers?quizID=" + quizID,
-            type: "GET",
-            dataType: "html",
-            success: function (response) {
-                $('#QuestionHolder').html(response);
-            },
-            error: function (err) {
-
-            }
-        })
-    }
-
     function GetQuestion(questionID) {
         $.ajax({
             url: "/User/GetQuestion?questionID=" + questionID,
             type: "get",
-            success: function (response) {
-                debugger
+            success: function (response) {                
                 $('#QuestionHolder').html(response);
             },
             error: function (err) {
@@ -69,6 +72,7 @@
 
     function RegisterAnswer(questionID, optionID, ele) {
         debugger
+        
         let parent = $(ele).closest('div');
         $.each(parent.children(), (ind, ele) => {
             $(ele).removeClass("btn-secondary");

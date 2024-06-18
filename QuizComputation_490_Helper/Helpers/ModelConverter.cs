@@ -110,6 +110,7 @@ namespace OnlineStoreHelper.Helpers
                 QuizTitle = quiz.title,
                 QuizDescription = quiz.description,
                 FirstQuestionID = quiz.Questions.OrderBy(q => q.questionID).FirstOrDefault().questionID ,
+                //LastQuestionID = quiz.Questions.OrderByDescending(q => q.questionID).FirstOrDefault().questionID,
                 isCompleted = quiz.Results.Where(q => q.quizID == quiz.quizID && q.userID == userID).FirstOrDefault() != null,
                 isAttempted = quiz.Results.Where(q => q.quizID == quiz.quizID).FirstOrDefault() != null
             };

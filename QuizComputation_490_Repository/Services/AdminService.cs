@@ -40,7 +40,7 @@ namespace QuizComputation_490_Repository.Services
                 {
                     Questions question = new Questions()
                     {
-                        createdAt = System.DateTime.Now,
+                        createdAt = DateTime.Now,
                         quizID = returnedQuiz.quizID,
                         questionText = newQuiz.QuizQuestionList[que].QuestionText
                     };

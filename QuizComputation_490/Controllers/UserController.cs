@@ -72,8 +72,8 @@ namespace QuizComputation_490.Controllers
         {
             string response = await WebAPICommon.WebApiHelper.HttpClientRequestResponseGet("api/UserAPI/GetQuestion?questionID=" + questionID);
             CompactQuestionModel quizModel = JsonConvert.DeserializeObject<CompactQuestionModel>(response);
-            //quizModel.FirstQuestionID = _quiz.GetFirstQuestionID((int)quiz.quizID);
-            //quizModel.LastQuestionID = _quiz.GetLastQuestionID((int)quiz.quizID);
+            //quizModel.FirstQuestionID = _quiz.GetFirstQuestionID((int)quiz.quizid);
+            //quizmodel.lastquestionid = _quiz.getlastquestionid((int)quiz.quizid);
             return PartialView("QuestionBox", quizModel);
         }
 
@@ -92,7 +92,7 @@ namespace QuizComputation_490.Controllers
         [System.Web.Mvc.HttpPost]
         public async Task<PartialViewResult> SaveAnswers(List<int> questions, List<int> answers, int quizID)
         {
-            if (questions.Count() != 5 || answers.Count() != 5)
+            if (questions.Count() < 5 || answers.Count() < 5)
             {
                 throw new Exception();
             }
@@ -109,7 +109,7 @@ namespace QuizComputation_490.Controllers
             {
                 quizID = quizID,
                 score = score,
-                TotalQuestions = 5
+                TotalQuestions = questions.Count()
             };
             //for-scalability of question numbers
             //resultModel.TotalQuestions = _quiz.GetTotalQuestions(quizID);

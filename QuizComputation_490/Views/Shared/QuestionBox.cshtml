@@ -17,8 +17,10 @@
     });
     $('#Submit-Quiz').on('click', function () {
         let question = @Model.QuestionID;
-        if (UserAnswer[question] != null)
+        if (UserAnswer[question] != null) {
             SubmitQuiz(@Model.QuizID);
+            console.log("here");
+        }
     })
 
     $('.previous-button').on('click', function () {
@@ -31,7 +33,6 @@
             GetQuestion(@(Model.QuestionID + 1))
         else {
             toastr.warning("Please select an option")
-
         }
     });
 
@@ -39,12 +40,13 @@
 </script>
 
 @{ 
-    int currentQuestion = (Model.QuestionID - 1) % 5 + 1;
+    int QuestionID = Model.QuestionID;
+    int curQue = Model.QuestionID - Model.FirstQuestionID + 1;
 }
 
 <div>
     <div class="d-flex justify-content-between">
-        <p>Question @currentQuestion</p>
+        <p>Question @curQue</p>
         <div>
             @*optional*@
             @Html.ActionLink("End Quiz", "StartQuiz", "User", new { @quizID = Model.QuizID }, new { @class="btn btn-danger btn-sm" })
@@ -61,11 +63,11 @@
     </div>
     <div class="gap-2 d-flex justify-content-end">
         @{ 
-            if(currentQuestion != 1)
+            if(QuestionID != Model.FirstQuestionID)
             {
                 <button class="btn btn-sm btn-secondary previous-button">&lt;</button>
             }
-            if(currentQuestion != 5)
+            if(QuestionID != Model.LastQuestionID)
             {
                 <button class="btn btn-sm btn-secondary next-button">&gt;</button>
             }
@@ -73,7 +75,7 @@
     </div>
     <div class="d-flex justify-content-center">
         @{ 
-            if(currentQuestion == 5)
+            if(QuestionID == Model.LastQuestionID)
             {
                 <button class="btn btn-success" id="Submit-Quiz">Submit</button>
             }
